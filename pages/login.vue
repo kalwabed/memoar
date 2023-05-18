@@ -17,6 +17,8 @@ const onLogin = async () => {
     alert(error.message)
     return
   }
+
+  await navigateTo('/')
 }
 </script>
 

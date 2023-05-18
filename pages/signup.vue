@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import { Database } from '@/types/database'
+
 useHead({
   title: 'Sign Up',
 })
 
 const authClient = useSupabaseAuthClient()
+const dbClient = useSupabaseClient<Database>()
 
 const signUpForm = reactive({
+  fullname: '',
   email: '',
   password: '',
   repeatPassword: '',
@@ -18,6 +22,12 @@ const onSignUp = async () => {
     alert(error.message)
     return
   }
+
+  const username = uniqueUsername(signUpForm.fullname)
+
+  const { data } = await dbClient.from('users').insert({ username, fullname: signUpForm.fullname }).select('fullname')
+
+  alert(`Welcome ${data?.length && data[0].fullname}!`)
 }
 </script>
 
@@ -25,6 +35,10 @@ const onSignUp = async () => {
   <div class="container">
     <h1>Sign Up</h1>
     <form @submit.prevent="onSignUp">
+      <div class="input-group" role="group">
+        <label for="fullname">Fullname</label>
+        <input id="fullname" v-model="signUpForm.fullname" />
+      </div>
       <div class="input-group" role="group">
         <label for="email">Email</label>
         <input type="email" id="email" v-model="signUpForm.email" />
