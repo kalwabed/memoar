@@ -28,6 +28,7 @@ const onSignUp = async () => {
   const { data } = await dbClient.from('users').insert({ username, fullname: signUpForm.fullname }).select('fullname')
 
   alert(`Welcome ${data?.length && data[0].fullname}!`)
+  await navigateTo('/')
 }
 </script>
 
