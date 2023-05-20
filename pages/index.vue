@@ -8,6 +8,7 @@ definePageMeta({
 })
 
 const authClient = useSupabaseAuthClient()
+const user = useSupabaseUser()
 
 const onLogout = async () => {
   await authClient.auth.signOut()
@@ -16,12 +17,22 @@ const onLogout = async () => {
 </script>
 
 <template>
-  <div>
-    <p>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel at quae quia ea aut. Dolorem, aspernatur eos dicta
-      sed adipisci placeat odio. Eos possimus natus quisquam incidunt temporibus, maxime repellat!
-    </p>
+  <div class="paper container">
+    <section>
+      <h2>Welcome, {{ user?.email }}</h2>
+      <p>Here we go again</p>
+    </section>
 
-    <button @click="onLogout">Logout</button>
+    <button class="paper-btn btn-small btn-danger-outline" @click="onLogout">Logout</button>
+
+    <section class="margin-top-large">
+      <h3>Latest topics</h3>
+      <small>Hope you enjoy</small>
+    </section>
+    <div class="margin-top-small">
+      <Suspense>
+        <Topics />
+      </Suspense>
+    </div>
   </div>
 </template>
