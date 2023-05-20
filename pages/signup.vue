@@ -33,28 +33,28 @@ const onSignUp = async () => {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container paper">
     <h1>Sign Up</h1>
     <form @submit.prevent="onSignUp">
-      <div class="input-group" role="group">
+      <div class="form-group" role="group">
         <label for="fullname">Fullname</label>
-        <input id="fullname" v-model="signUpForm.fullname" />
+        <input id="fullname" class="input-block" v-model="signUpForm.fullname" />
       </div>
-      <div class="input-group" role="group">
+      <div class="form-group" role="group">
         <label for="email">Email</label>
-        <input type="email" id="email" v-model="signUpForm.email" />
+        <input type="email" class="input-block" id="email" v-model="signUpForm.email" />
       </div>
-      <div class="input-group" role="group">
+      <div class="form-group" role="group">
         <label for="password">Password</label>
-        <input type="password" id="password" v-model="signUpForm.password" />
+        <input type="password" class="input-block" id="password" v-model="signUpForm.password" />
       </div>
-      <div class="input-group" role="group">
+      <div class="form-group" role="group">
         <label for="rePassword">Repeat Password</label>
-        <input type="password" id="rePassword" v-model="signUpForm.repeatPassword" />
+        <input type="password" class="input-block" id="rePassword" v-model="signUpForm.repeatPassword" />
       </div>
 
-      <button type="submit">Sign up</button>
-      <p>Already have an account? <NuxtLink to="/login">Login</NuxtLink></p>
+      <button class="paper-btn btn-primary" type="submit">Sign Up</button>
+      <div class="margin-top-large"><span>Already have an account?</span> <NuxtLink to="/login">Login</NuxtLink></div>
     </form>
   </div>
 </template>
@@ -62,51 +62,6 @@ const onSignUp = async () => {
 <style scoped>
 .container {
   max-width: 600px;
-  margin: 10rem auto;
-  padding: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-h1 {
-  margin-bottom: 1rem;
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.input-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-.input-group label {
-  margin-bottom: 0.5rem;
-}
-
-.input-group input {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.input-group input:focus {
-  outline: none;
-  border-color: #333;
-}
-
-button {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  background-color: #333;
-  color: #fff;
-  cursor: pointer;
-  margin-left: auto;
+  margin-top: 4rem;
 }
 </style>

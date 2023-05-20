@@ -22,6 +22,9 @@ devDependencies:
   nuxt:
     specifier: ^3.5.0
     version: 3.5.0(@types/node@18.0.0)
+  papercss:
+    specifier: ^1.9.1
+    version: 1.9.1
 
 packages:
 
@@ -4536,6 +4539,10 @@ packages:
     transitivePeerDependencies:
       - bluebird
       - supports-color
+    dev: true
+
+  /papercss@1.9.1:
+    resolution: {integrity: sha512-3Xaw2O2kRjUdDSfpwztc5p5eWGc+lNUBnjhJOMc4LzH44LigGMH4VpCrXwQvIoC5K2W1tI5Qk+15aWTz8UfxmQ==}
     dev: true
 
   /parse-git-config@3.0.0:
