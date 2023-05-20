@@ -1,5 +1,15 @@
 <script setup lang="ts">
 import { Database } from '~/types/database'
+import { useDateFormat } from '@vueuse/core'
+
+interface Topic {
+  id: string
+  title: string
+  slug: string
+  content: string
+  updated_at: string
+  created_at: string
+}
 
 const client = useSupabaseClient<Database>()
 const route = useRoute()
@@ -7,9 +17,17 @@ const route = useRoute()
 const slug: string = route.params.slug
 
 const { data: topic } = await useAsyncData(slug, async () => {
-  const { data } = await client.from('topics').select('*').eq('slug', slug).single()
+  const { data } = (await client.from('topics').select('*').eq('slug', slug).single()) as { data: Topic }
 
   return data
+})
+
+const dateFormatSystem = computed(() => {
+  return new Date(topic.value?.created_at ?? '').toISOString()
+})
+
+const dateFormatDisplay = computed(() => {
+  return useDateFormat(topic.value?.created_at, 'DD MMM YYYY').value
 })
 
 useHead({
@@ -23,11 +41,8 @@ useHead({
       <h1 class="article-title">{{ topic?.title }}</h1>
       <div class="article-meta">
         <span> Issued by: anybody </span>
-        <time
-          :datetime="new Date(topic?.created_at).toISOString()"
-          :title="new Date(topic?.created_at).toLocaleString()"
-        >
-          {{ new Date(topic?.created_at).toLocaleDateString() }}
+        <time :datetime="dateFormatSystem" :title="dateFormatSystem">
+          {{ dateFormatDisplay }}
         </time>
       </div>
       <p>
