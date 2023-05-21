@@ -7,7 +7,7 @@ const props = defineProps<{
 
 const client = useSupabaseClient<Database>()
 
-const { data: topics, error } = await useAsyncData('topics', async () => {
+const { data: topics } = await useAsyncData(props.userId ? `${props.userId}-topics` : 'topics', async () => {
   if (props.userId) {
     const { data: topicsByUserId } = await client
       .from('topics')
@@ -21,10 +21,6 @@ const { data: topics, error } = await useAsyncData('topics', async () => {
 
   return allTopics as Topic[]
 })
-
-if (error) {
-  console.error(error)
-}
 </script>
 
 <template>

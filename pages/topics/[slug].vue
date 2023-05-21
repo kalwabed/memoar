@@ -56,7 +56,7 @@ useHead({
         v-model:content="editorValue"
         :toolbar="['bold', 'italic', 'underline', 'code', 'strike', 'link']"
       />
-      <button type="submit" class="paper-btn btn-small margin-top">Update</button>
+      <button type="submit" class="btn-small margin-top">Update</button>
     </form>
   </div>
 </template>

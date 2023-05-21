@@ -56,7 +56,7 @@ const onSignUp = async () => {
         <input type="password" class="input-block" id="rePassword" v-model="signUpForm.repeatPassword" />
       </div>
 
-      <button class="paper-btn btn-primary" type="submit">Sign Up</button>
+      <button class="btn-primary" type="submit">Sign Up</button>
       <div class="margin-top-large"><span>Already have an account?</span> <NuxtLink to="/login">Login</NuxtLink></div>
     </form>
   </div>

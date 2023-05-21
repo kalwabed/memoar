@@ -4,6 +4,7 @@ import { Database, User } from '~/types/database'
 const route = useRoute()
 
 const client = useSupabaseClient<Database>()
+const userAuth = useSupabaseUser()
 
 // @ts-ignore
 const username: string = route.params.username
@@ -14,6 +15,10 @@ const { data: user } = await useAsyncData(username, async () => {
   return data
 })
 
+const isCurrentUser = computed(() => {
+  return userAuth?.value?.id === user?.value?.id
+})
+
 useHead({
   title: username,
 })
@@ -21,16 +26,26 @@ useHead({
 
 <template>
   <div class="paper container">
-    <div class="profile">
-      <img :src="user?.avatar_url" alt="profile" width="100" height="100" />
-      <div class="name">
-        <h3>{{ user?.fullname }}</h3>
-        <span>@{{ username }}</span>
+    <div v-if="user?.id">
+      <div class="profile">
+        <img :src="user?.avatar_url" alt="profile" width="100" height="100" />
+        <div class="name">
+          <h3>{{ user?.fullname }}</h3>
+          <span>@{{ username }}</span>
+        </div>
+        <button v-if="isCurrentUser" class="btn-small btn-secondary">Add Topic</button>
       </div>
-      <button class="btn-small paper-btn btn-secondary">Add Topic</button>
+      <h4 v-if="isCurrentUser" class="margin-top">Your Topics</h4>
+      <Suspense>
+        <Topics :user-id="user?.id" />
+      </Suspense>
     </div>
-    <h4 class="margin-top">Your Topics</h4>
-    <Topics :user-id="user?.id" />
+
+    <div class="error" v-else>
+      <h1>404</h1>
+      <p>Sorry, we couldn't find the page you're looking for.</p>
+      <button class="btn-small btn-primary margin-top" @click="$router.back()">Go back</button>
+    </div>
   </div>
 </template>
 
@@ -46,5 +61,17 @@ useHead({
 
 .profile button {
   margin-left: auto;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-align: center;
+  padding: 2rem;
+  border: 1px solid #eaeaea;
+  border-radius: 0.5rem;
 }
 </style>

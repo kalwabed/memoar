@@ -23,7 +23,7 @@ const onLogout = async () => {
       <p>Here we go again</p>
     </section>
 
-    <button class="paper-btn btn-small btn-danger-outline" @click="onLogout">Logout</button>
+    <button class="btn-small btn-danger-outline" @click="onLogout">Logout</button>
 
     <section class="margin-top-large">
       <h3>Latest topics</h3>

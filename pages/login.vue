@@ -34,7 +34,7 @@ const onLogin = async () => {
         <label for="password">Password</label>
         <input type="password" class="input-block" id="password" v-model="loginForm.password" />
       </div>
-      <button class="paper-btn btn-primary" type="submit">Login</button>
+      <button class="btn-primary" type="submit">Login</button>
       <div class="margin-top-large">
         <span> Don't have an account? </span>
         <NuxtLink to="/signup">Sign up</NuxtLink>
