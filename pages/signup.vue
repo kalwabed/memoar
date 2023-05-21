@@ -16,7 +16,7 @@ const signUpForm = reactive({
 })
 
 const onSignUp = async () => {
-  const { error } = await authClient.auth.signUp(signUpForm)
+  const { error, data: authData } = await authClient.auth.signUp(signUpForm)
 
   if (error) {
     alert(error.message)
@@ -25,7 +25,10 @@ const onSignUp = async () => {
 
   const username = uniqueUsername(signUpForm.fullname)
 
-  const { data } = await dbClient.from('users').insert({ username, fullname: signUpForm.fullname }).select('fullname')
+  const { data } = await dbClient
+    .from('users')
+    .insert({ username, fullname: signUpForm.fullname, id: authData.user?.id })
+    .select('fullname')
 
   alert(`Welcome ${data?.length && data[0].fullname}!`)
   await navigateTo('/')
