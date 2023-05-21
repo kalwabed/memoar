@@ -5,6 +5,10 @@ useHead({
   title: 'Sign Up',
 })
 
+definePageMeta({
+  layout: 'auth',
+})
+
 const authClient = useSupabaseAuthClient()
 const dbClient = useSupabaseClient<Database>()
 

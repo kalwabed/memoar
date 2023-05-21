@@ -3,6 +3,10 @@ useHead({
   title: 'Login',
 })
 
+definePageMeta({
+  layout: 'auth',
+})
+
 const authClient = useSupabaseAuthClient()
 
 const loginForm = reactive({

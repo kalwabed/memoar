@@ -3,10 +3,6 @@ useHead({
   title: 'Home',
 })
 
-definePageMeta({
-  layout: 'auth',
-})
-
 const authClient = useSupabaseAuthClient()
 const user = useSupabaseUser()
 
