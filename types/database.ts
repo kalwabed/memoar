@@ -1,10 +1,4 @@
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json }
-  | Json[]
+export type Json = string | number | boolean | null | { [key: string]: Json } | Json[]
 
 export interface Database {
   graphql_public: {
@@ -213,3 +207,19 @@ export interface Database {
   }
 }
 
+export interface Topic {
+  id: string
+  title: string
+  slug: string
+  content: string
+  updated_at: string
+  created_at: string
+}
+
+export interface User {
+  id: string
+  username: string
+  fullname: string
+  avatar_url: string
+  created_at: string
+}

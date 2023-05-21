@@ -1,16 +1,7 @@
 <script setup lang="ts">
 import { useDateFormat } from '@vueuse/core'
 
-import { Database } from '~/types/database'
-
-interface Topic {
-  id: string
-  title: string
-  slug: string
-  content: string
-  updated_at: string
-  created_at: string
-}
+import { Database, Topic } from '~/types/database'
 
 const client = useSupabaseClient<Database>()
 const route = useRoute()
@@ -20,13 +11,9 @@ const slug: string = route.params.slug
 const editorValue = ref('')
 
 const { data: topic, refresh } = await useAsyncData(slug, async () => {
-  const { data } = (await client
-    .from('topics')
-    .select('*, users ( id, username ,avatar_url )')
-    .eq('slug', slug)
-    .single()) as { data: Topic & { users: { id: string; username: string; avatar_url: string } } }
+  const { data } = await client.from('topics').select('*, users ( id, username ,avatar_url )').eq('slug', slug).single()
 
-  return data
+  return data as Topic & { users: { id: string; username: string; avatar_url: string } }
 })
 
 const dateFormatSystem = computed(() => {
@@ -54,7 +41,7 @@ useHead({
       <div class="article-meta">
         <div class="profile">
           <img :src="topic?.users?.avatar_url" alt="Profile" loading="lazy" decoding="async" width="20" height="20" />
-          <span>@{{ topic?.users.username }} </span>
+          <NuxtLink :to="'/' + topic?.users.username">@{{ topic?.users.username }} </NuxtLink>
         </div>
         <time :datetime="dateFormatSystem" :title="dateFormatSystem">
           {{ dateFormatDisplay }}

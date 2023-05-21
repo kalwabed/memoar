@@ -1,9 +1,26 @@
 <script setup lang="ts">
-import { Database } from '~/types/database'
+import { Database, Topic } from '~/types/database'
+
+const props = defineProps<{
+  userId?: string
+}>()
 
 const client = useSupabaseClient<Database>()
 
-const { data: topics, error } = await client.from('topics').select('*')
+const { data: topics, error } = await useAsyncData('topics', async () => {
+  if (props.userId) {
+    const { data: topicsByUserId } = await client
+      .from('topics')
+      .select('*')
+      .eq('user_id', props.userId)
+      .order('created_at', { ascending: false })
+
+    return topicsByUserId as Topic[]
+  }
+  const { data: allTopics } = await client.from('topics').select('*').order('created_at', { ascending: false })
+
+  return allTopics as Topic[]
+})
 
 if (error) {
   console.error(error)
