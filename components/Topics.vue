@@ -13,7 +13,7 @@ if (error) {
 <template>
   <ul>
     <li class="margin-top-small" v-for="topic in topics" :key="topic.id">
-      <NuxtLink :to="topic.slug">{{ topic.title }}</NuxtLink>
+      <NuxtLink :to="'/topics/' + topic.slug">{{ topic.title }}</NuxtLink>
     </li>
   </ul>
 </template>
