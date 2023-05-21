@@ -1,3 +1,19 @@
+<script setup lang="ts">
+import { User } from '~/types/database'
+
+// currently user is not reactive
+const userAuth = useSupabaseUser()
+const client = useSupabaseClient()
+
+const { data: user } = await useAsyncData(`${userAuth?.value?.id}`, async () => {
+  const { data, error } = await client.from('users').select('*').eq('id', userAuth?.value?.id).single()
+
+  if (error) throw error
+
+  return data as User
+})
+</script>
+
 <template>
   <nav class="container split-nav">
     <div class="nav-brand">
@@ -15,10 +31,7 @@
       <div class="collapsible-body">
         <ul class="inline">
           <li>
-            <NuxtLink to="/">Home</NuxtLink>
-          </li>
-          <li>
-            <NuxtLink to="/topics">Topics</NuxtLink>
+            <NuxtLink :to="user?.username">@{{ user?.username }}</NuxtLink>
           </li>
         </ul>
       </div>

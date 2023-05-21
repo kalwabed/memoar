@@ -1,6 +1,8 @@
 <template>
   <div>
-    <Navbar />
+    <Suspense>
+      <Navbar />
+    </Suspense>
     <main>
       <slot />
     </main>
