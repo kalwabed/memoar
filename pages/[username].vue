@@ -24,18 +24,23 @@ const isCurrentUser = computed(() => {
 })
 
 const onSubmit = async () => {
-  await client.from('topics').insert([
-    {
-      title: title.value,
-      user_id: userAuth.value?.id,
-      content: editorValue.value,
-      slug: generateSlug(title.value),
-    },
-  ])
-
-  await refreshNuxtData(`${userAuth.value?.id}-topics`)
-  editorValue.value = ''
-  title.value = ''
+  try {
+    await client.from('topics').insert([
+      {
+        title: title.value,
+        user_id: userAuth.value?.id,
+        content: editorValue.value,
+        slug: generateSlug(title.value),
+      },
+    ])
+    editorValue.value = ''
+    title.value = ''
+    isAddTopic.value = false
+  } catch (error) {
+    console.error(error)
+  } finally {
+    await refreshNuxtData(`${userAuth.value?.id}-topics`)
+  }
 }
 
 useHead({
@@ -52,28 +57,34 @@ useHead({
           <h3>{{ user?.fullname }}</h3>
           <span>@{{ username }}</span>
         </div>
-        <button v-if="isCurrentUser" @click="isAddTopic = !isAddTopic" class="btn-small btn-secondary">
-          Add Topic
-        </button>
       </div>
-      <Transition>
-        <form @submit.prevent="onSubmit" v-if="isAddTopic" class="margin-top">
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" id="title" v-model="title" />
-          </div>
-          <div class="form-group">
-            <label for="content">Content</label>
-            <LazyEditor
-              contentType="html"
-              id="content"
-              v-model:content="editorValue"
-              :toolbar="['bold', 'italic', 'underline', 'code', 'strike', 'link']"
-            />
-          </div>
-          <button type="submit" class="btn-small margin-top">Send</button>
-        </form>
-      </Transition>
+      <button
+        v-if="isCurrentUser"
+        v-show="!isAddTopic"
+        @click="isAddTopic = true"
+        class="btn-small btn-secondary btn-block margin-top-small"
+      >
+        Add Topic
+      </button>
+      <form @submit.prevent="onSubmit" v-if="isAddTopic" class="margin-top">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" id="title" class="input-block" v-model="title" />
+        </div>
+        <div class="form-group">
+          <label for="content">Content</label>
+          <LazyEditor
+            contentType="html"
+            id="content"
+            v-model:content="editorValue"
+            :toolbar="['bold', 'italic', 'underline', 'code', 'strike', 'link']"
+          />
+        </div>
+        <div class="margin-top">
+          <button class="btn-small margin-right-small" @click.stop.prevent="isAddTopic = false">Cancel</button>
+          <button type="submit" class="btn-small btn-secondary margin-top">Send</button>
+        </div>
+      </form>
       <h4 v-if="isCurrentUser" class="margin-top">Your Topics</h4>
       <Suspense>
         <Topics :user-id="user?.id" />
