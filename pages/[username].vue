@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { Database, User } from '~/types/database'
 
+const editorValue = ref('')
+const title = ref('')
+const isAddTopic = ref(false)
+
 const route = useRoute()
 
 const client = useSupabaseClient<Database>()
@@ -19,6 +23,21 @@ const isCurrentUser = computed(() => {
   return userAuth?.value?.id === user?.value?.id
 })
 
+const onSubmit = async () => {
+  await client.from('topics').insert([
+    {
+      title: title.value,
+      user_id: userAuth.value?.id,
+      content: editorValue.value,
+      slug: generateSlug(title.value),
+    },
+  ])
+
+  await refreshNuxtData(`${userAuth.value?.id}-topics`)
+  editorValue.value = ''
+  title.value = ''
+}
+
 useHead({
   title: username,
 })
@@ -33,8 +52,28 @@ useHead({
           <h3>{{ user?.fullname }}</h3>
           <span>@{{ username }}</span>
         </div>
-        <button v-if="isCurrentUser" class="btn-small btn-secondary">Add Topic</button>
+        <button v-if="isCurrentUser" @click="isAddTopic = !isAddTopic" class="btn-small btn-secondary">
+          Add Topic
+        </button>
       </div>
+      <Transition>
+        <form @submit.prevent="onSubmit" v-if="isAddTopic" class="margin-top">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" v-model="title" />
+          </div>
+          <div class="form-group">
+            <label for="content">Content</label>
+            <LazyEditor
+              contentType="html"
+              id="content"
+              v-model:content="editorValue"
+              :toolbar="['bold', 'italic', 'underline', 'code', 'strike', 'link']"
+            />
+          </div>
+          <button type="submit" class="btn-small margin-top">Send</button>
+        </form>
+      </Transition>
       <h4 v-if="isCurrentUser" class="margin-top">Your Topics</h4>
       <Suspense>
         <Topics :user-id="user?.id" />
@@ -73,5 +112,15 @@ useHead({
   padding: 2rem;
   border: 1px solid #eaeaea;
   border-radius: 0.5rem;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>

@@ -19,7 +19,7 @@ const { data: user } = await useAsyncData(`session-${userAuth?.user?.id}`, async
   <nav class="container split-nav">
     <div class="nav-brand">
       <h3>
-        <NuxtLink to="/">undiscus</NuxtLink>
+        <NuxtLink to="/">Memoar</NuxtLink>
       </h3>
     </div>
     <div class="collapsible">
@@ -32,7 +32,7 @@ const { data: user } = await useAsyncData(`session-${userAuth?.user?.id}`, async
       <div class="collapsible-body">
         <ul class="inline">
           <li>
-            <NuxtLink :to="user?.username">@{{ user?.username }}</NuxtLink>
+            <NuxtLink :to="'/' + user?.username">@{{ user?.username }}</NuxtLink>
           </li>
         </ul>
       </div>

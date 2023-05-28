@@ -8,9 +8,7 @@ const route = useRoute()
 // @ts-ignore
 const slug: string = route.params.slug
 
-const editorValue = ref('')
-
-const { data: topic, refresh } = await useAsyncData(slug, async () => {
+const { data: topic } = await useAsyncData(slug, async () => {
   const { data } = await client.from('topics').select('*, users ( id, username ,avatar_url )').eq('slug', slug).single()
 
   return data as Topic & { users: { id: string; username: string; avatar_url: string } }
@@ -23,11 +21,6 @@ const dateFormatSystem = computed(() => {
 const dateFormatDisplay = computed(() => {
   return useDateFormat(topic.value?.created_at, 'DD MMM YYYY').value
 })
-
-const onSubmit = async () => {
-  await client.from('topics').update({ content: editorValue.value }).eq('slug', slug)
-  await refresh()
-}
 
 useHead({
   title: topic.value?.title,
@@ -49,15 +42,6 @@ useHead({
       </div>
       <div v-html="topic?.content"></div>
     </article>
-
-    <form @submit.prevent="onSubmit">
-      <LazyEditor
-        contentType="html"
-        v-model:content="editorValue"
-        :toolbar="['bold', 'italic', 'underline', 'code', 'strike', 'link']"
-      />
-      <button type="submit" class="btn-small margin-top">Update</button>
-    </form>
   </div>
 </template>
 

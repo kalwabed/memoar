@@ -21,6 +21,8 @@
     "papercss": "^1.9.1"
   },
   "dependencies": {
-    "@vueup/vue-quill": "^1.2.0"
+    "@sindresorhus/slugify": "^2.2.1",
+    "@vueup/vue-quill": "^1.2.0",
+    "uid": "^2.0.2"
   }
 }
