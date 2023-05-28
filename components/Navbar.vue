@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { User } from '~/types/database'
 
-// currently user is not reactive
-const userAuth = useSupabaseUser()
+const authClient = useSupabaseAuthClient()
 const client = useSupabaseClient()
 
-const { data: user } = await useAsyncData(`${userAuth?.value?.id}`, async () => {
-  const { data, error } = await client.from('users').select('*').eq('id', userAuth?.value?.id).single()
+const { data: userAuth } = await authClient.auth.getUser()
+
+const { data: user } = await useAsyncData(`session-${userAuth?.user?.id}`, async () => {
+  const { data, error } = await client.from('users').select('*').eq('id', userAuth?.user?.id).single()
 
   if (error) throw error
 
