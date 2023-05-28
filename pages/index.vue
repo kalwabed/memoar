@@ -27,7 +27,7 @@ const onLogout = async () => {
     </section>
     <div class="margin-top-small">
       <Suspense>
-        <Topics />
+        <Topics :enable-delete="false" />
       </Suspense>
     </div>
   </div>

@@ -3,6 +3,7 @@ import { Database, Topic } from '~/types/database'
 
 const props = defineProps<{
   userId?: string
+  enableDelete?: boolean
 }>()
 
 const client = useSupabaseClient<Database>()
@@ -44,7 +45,14 @@ async function deleteArticle(id: string) {
           {{ topic.title }}
         </h4>
       </div>
-      <button @click.stop.prevent="deleteArticle(topic.id)" class="card-link btn-small btn-danger">🔥</button>
+      <button
+        v-if="$props.enableDelete"
+        popover-top="Delete article"
+        @click.stop.prevent="deleteArticle(topic.id)"
+        class="card-link btn-small btn-danger"
+      >
+        🔥
+      </button>
     </div>
   </NuxtLink>
 </template>

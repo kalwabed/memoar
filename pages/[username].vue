@@ -87,7 +87,7 @@ useHead({
       </form>
       <h4 v-if="isCurrentUser" class="margin-top">Your Topics</h4>
       <Suspense>
-        <Topics :user-id="user?.id" />
+        <Topics :enable-delete="isCurrentUser" :user-id="user?.id" />
       </Suspense>
     </div>
 
