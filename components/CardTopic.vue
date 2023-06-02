@@ -14,7 +14,7 @@ defineEmits<{
 const publishedAt = computed(() => {
   const dateUpload = new Date(props.uploadedAt)
 
-  return new Intl.DateTimeFormat('id', { dateStyle: 'medium', timeStyle: 'short' }).format(dateUpload)
+  return useDateFormat(dateUpload, 'DD MMM YYYY, HH:mm', { locales: 'id' }).value
 })
 </script>
 

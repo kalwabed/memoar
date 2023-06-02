@@ -19,7 +19,7 @@ const dateFormatSystem = computed(() => {
 })
 
 const dateFormatDisplay = computed(() => {
-  return useDateFormat(topic.value?.created_at, 'DD MMM YYYY').value
+  return useDateFormat(topic.value?.created_at, 'DD MMM YYYY', { locales: 'id' }).value
 })
 
 useHead({
