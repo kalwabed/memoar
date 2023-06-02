@@ -1,42 +1,47 @@
-# Nuxt 3 Minimal Starter
+# Memoar
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Trying to solve a problem that doesn't even exist. An experimental project.
+You can think of it as a mini blog, for now. You can write your own articles.
 
-## Setup
+## Demo
 
-Make sure to install the dependencies:
+// Coming very soon.
+
+## Tech Stack
+
+**Client:** Vue, Nuxt 3, TypeScript, PaperCSS.
+
+**Server:** Supabase.
+
+## Contributing
+
+Contributions are always welcome!
+
+First, clone the repository.
 
 ```bash
-# yarn
-yarn install
+git clone https://github.com/kalwabed/memoar.git
+```
 
-# npm
-npm install
+Then, install dependencies and fetch data to your local machine. **Note that we use PNPM.**
 
-# pnpm
+```bash
+cd memoar
 pnpm install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`
+Finally, run the development server.
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
-## Production
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Build the application for production:
+## Feedback
 
-```bash
-npm run build
-```
+If you have any feedback, please reach out to me at [Twitter](https://twitter.com/kalwabedrzk).
 
-Locally preview production build:
+## License
 
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+[MIT](https://choosealicense.com/licenses/mit/)
