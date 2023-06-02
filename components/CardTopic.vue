@@ -1,6 +1,8 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   topicTitle: string
+  username: string
+  uploadedAt: string
   enableDelete?: boolean
   topicId: string
 }>()
@@ -8,6 +10,12 @@ defineProps<{
 defineEmits<{
   (e: 'deleteArticle', topicId: string): void
 }>()
+
+const publishedAt = computed(() => {
+  const dateUpload = new Date(props.uploadedAt)
+
+  return new Intl.DateTimeFormat('id', { dateStyle: 'medium', timeStyle: 'short' }).format(dateUpload)
+})
 </script>
 
 <template>
@@ -16,6 +24,8 @@ defineEmits<{
       <h4 class="card-title">
         {{ $props.topicTitle }}
       </h4>
+      <h5 class="card-subtitle">@{{ $props.username }}</h5>
+      <small>{{ publishedAt }}</small>
     </div>
     <button
       v-if="$props.enableDelete"

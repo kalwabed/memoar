@@ -12,15 +12,18 @@ const { data: topics } = await useAsyncData(props.userId ? `${props.userId}-topi
   if (props.userId) {
     const { data: topicsByUserId } = await client
       .from('topics')
-      .select('*')
+      .select('*, users(username)')
       .eq('user_id', props.userId)
       .order('created_at', { ascending: false })
 
-    return topicsByUserId as Topic[]
+    return topicsByUserId as (Topic & { users: { username: string } })[]
   }
-  const { data: allTopics } = await client.from('topics').select('*').order('created_at', { ascending: false })
+  const { data: allTopics } = await client
+    .from('topics')
+    .select('*, users(username)')
+    .order('created_at', { ascending: false })
 
-  return allTopics as Topic[]
+  return allTopics as (Topic & { users: { username: string } })[]
 })
 
 async function deleteArticle(id: string) {
@@ -43,6 +46,8 @@ async function deleteArticle(id: string) {
       <CardTopic
         :topicTitle="topic.title"
         :topicId="topic.id"
+        :uploadedAt="topic.created_at"
+        :username="topic.users.username"
         :enableDelete="$props.enableDelete"
         @deleteArticle="deleteArticle"
       />
