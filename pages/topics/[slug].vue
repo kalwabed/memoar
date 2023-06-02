@@ -33,7 +33,14 @@ useHead({
       <h1 class="article-title">{{ topic?.title }}</h1>
       <div class="article-meta">
         <div class="profile">
-          <img :src="topic?.users?.avatar_url" alt="Profile" loading="lazy" decoding="async" width="20" height="20" />
+          <ProfilePicture
+            :username="topic?.users.username"
+            :src="topic?.users.avatar_url"
+            :width="35"
+            :height="35"
+            loading="lazy"
+            decoding="async"
+          />
           <NuxtLink :to="'/' + topic?.users.username">@{{ topic?.users.username }} </NuxtLink>
         </div>
         <time :datetime="dateFormatSystem" :title="dateFormatSystem">
