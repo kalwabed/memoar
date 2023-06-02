@@ -52,7 +52,7 @@ useHead({
   <div class="paper container">
     <div v-if="user?.id">
       <div class="profile">
-        <img :src="user?.avatar_url" alt="profile" width="100" height="100" />
+        <ProfilePicture :src="user?.avatar_url" :username="username" alt="profile" :width="100" :height="100" />
         <div class="name">
           <h3>{{ user?.fullname }}</h3>
           <span>@{{ username }}</span>
