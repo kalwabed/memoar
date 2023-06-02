@@ -40,21 +40,12 @@ async function deleteArticle(id: string) {
 <template>
   <div>
     <NuxtLink v-for="topic in topics" v-if="topics?.length" :key="topic.id" :to="'/topics/' + topic.slug">
-      <div class="card margin-top">
-        <div class="card-body">
-          <h4 class="card-title">
-            {{ topic.title }}
-          </h4>
-        </div>
-        <button
-          v-if="$props.enableDelete"
-          popover-top="Delete article"
-          @click.stop.prevent="deleteArticle(topic.id)"
-          class="card-link btn-small btn-danger"
-        >
-          🔥
-        </button>
-      </div>
+      <CardTopic
+        :topicTitle="topic.title"
+        :topicId="topic.id"
+        :enableDelete="$props.enableDelete"
+        @deleteArticle="deleteArticle"
+      />
     </NuxtLink>
 
     <p v-else>No topics yet.</p>
@@ -62,25 +53,8 @@ async function deleteArticle(id: string) {
 </template>
 
 <style scoped>
-.card {
-  position: relative;
-}
-
 a {
   position: relative;
   z-index: 1;
-}
-
-button {
-  position: absolute;
-  right: 0;
-  top: 0;
-  display: inline-flex;
-  align-items: center;
-  width: 30px;
-  height: 20px;
-  margin: 10px;
-  padding: 4px;
-  z-index: 10;
 }
 </style>
