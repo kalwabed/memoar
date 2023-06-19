@@ -12,15 +12,18 @@ const { data: topics } = await useAsyncData(props.userId ? `${props.userId}-topi
   if (props.userId) {
     const { data: topicsByUserId } = await client
       .from('topics')
-      .select('*')
+      .select('*, users(username)')
       .eq('user_id', props.userId)
       .order('created_at', { ascending: false })
 
-    return topicsByUserId as Topic[]
+    return topicsByUserId as (Topic & { users: { username: string } })[]
   }
-  const { data: allTopics } = await client.from('topics').select('*').order('created_at', { ascending: false })
+  const { data: allTopics } = await client
+    .from('topics')
+    .select('*, users(username)')
+    .order('created_at', { ascending: false })
 
-  return allTopics as Topic[]
+  return allTopics as (Topic & { users: { username: string } })[]
 })
 
 async function deleteArticle(id: string) {
@@ -40,21 +43,14 @@ async function deleteArticle(id: string) {
 <template>
   <div>
     <NuxtLink v-for="topic in topics" v-if="topics?.length" :key="topic.id" :to="'/topics/' + topic.slug">
-      <div class="card margin-top">
-        <div class="card-body">
-          <h4 class="card-title">
-            {{ topic.title }}
-          </h4>
-        </div>
-        <button
-          v-if="$props.enableDelete"
-          popover-top="Delete article"
-          @click.stop.prevent="deleteArticle(topic.id)"
-          class="card-link btn-small btn-danger"
-        >
-          🔥
-        </button>
-      </div>
+      <CardTopic
+        :topicTitle="topic.title"
+        :topicId="topic.id"
+        :uploadedAt="topic.created_at"
+        :username="topic.users.username"
+        :enableDelete="$props.enableDelete"
+        @deleteArticle="deleteArticle"
+      />
     </NuxtLink>
 
     <p v-else>No topics yet.</p>
@@ -62,25 +58,8 @@ async function deleteArticle(id: string) {
 </template>
 
 <style scoped>
-.card {
-  position: relative;
-}
-
 a {
   position: relative;
   z-index: 1;
-}
-
-button {
-  position: absolute;
-  right: 0;
-  top: 0;
-  display: inline-flex;
-  align-items: center;
-  width: 30px;
-  height: 20px;
-  margin: 10px;
-  padding: 4px;
-  z-index: 10;
 }
 </style>
