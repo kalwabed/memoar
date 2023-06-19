@@ -1,28 +1,10 @@
 <template>
-  <div>
+  <div class="flex flex-col h-full font-sans">
     <Suspense>
       <Navbar />
     </Suspense>
-    <main>
+    <main class="mt-4 px-4 md:mt-12 lg:px0">
       <slot />
     </main>
   </div>
 </template>
-
-<style scoped>
-div {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-main {
-  margin-top: 1rem;
-}
-
-@media (min-width: 768px) {
-  main {
-    margin-top: 3rem;
-  }
-}
-</style>
