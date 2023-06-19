@@ -36,7 +36,7 @@ const publishedAt = computed(() => {
       </NuxtLink>
       <time
         class="text-xs"
-        :title="new Date(topic.created_at).toISOString()"
+        :title="new Date(topic.created_at).toString()"
         :datetime="new Date(topic.created_at).toISOString()"
         >{{ publishedAt }}</time
       >

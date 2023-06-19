@@ -15,4 +15,7 @@ export default defineConfig({
       },
     }),
   ],
+  shortcuts: {
+    container: 'max-w-screen-lg w-full mx-auto px-4 lg:px0',
+  },
 })
