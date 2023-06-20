@@ -43,6 +43,11 @@ const onSubmit = async () => {
   }
 }
 
+const logout = async () => {
+  await client.auth.signOut()
+  await navigateTo('/login')
+}
+
 useHead({
   title: username,
 })
@@ -56,6 +61,7 @@ useHead({
         <div class="name">
           <h3>{{ user?.fullname }}</h3>
           <span>@{{ username }}</span>
+          <button @click="logout">Logout</button>
         </div>
       </div>
       <button

@@ -45,7 +45,7 @@ const onSignUp = async () => {
     <form @submit.prevent="onSignUp">
       <div class="form-group" role="group">
         <label for="fullname">Fullname</label>
-        <input id="fullname" class="input-block" v-model="signUpForm.fullname" />
+        <input id="fullname" class="px-4 py-2 rd b b-gray3 hover:b-gray4 transition outline-none focus:(ring-2 b-transparent)" v-model="signUpForm.fullname" />
       </div>
       <div class="form-group" role="group">
         <label for="email">Email</label>
