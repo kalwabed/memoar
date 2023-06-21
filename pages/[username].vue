@@ -54,15 +54,18 @@ useHead({
 </script>
 
 <template>
-  <div class="paper container">
+  <div class="container">
     <div v-if="user?.id">
-      <div class="profile">
+      <div class="flex gap-4">
         <ProfilePicture :src="user?.avatar_url" :username="username" alt="profile" :width="100" :height="100" />
-        <div class="name">
-          <h3>{{ user?.fullname }}</h3>
+        <div class="flex flex-col">
+          <h3 class="text-2xl font-bold leading-relaxed">{{ user?.fullname }}</h3>
           <span>@{{ username }}</span>
-          <button @click="logout">Logout</button>
         </div>
+        <button @click="logout" class="ml-auto inline-flex gap-2 font-semibold text-sm c-red9 bg-red1 hover:bg-red2 transition outline-none focus:(ring-2 b-transparent) b b-red3 items-center h-full px-4 py-1 rd">
+          <span>Sign out</span>
+          <i class="i-ph-sign-out w4 h4" />
+        </button>
       </div>
       <button
         v-if="isCurrentUser"

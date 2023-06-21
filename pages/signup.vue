@@ -87,7 +87,7 @@ const onSignUp = async () => {
       </button>
       <div class="mt-4">
         <span>Already have an account?</span>
-        <NuxtLink class="hover:underline c-blue7 focus:ring outline-none transition" to="/login">Login</NuxtLink>
+        <NuxtLink class="hover:underline c-blue7 focus:ring outline-none transition ml-1" to="/login">Login</NuxtLink>
       </div>
     </form>
   </div>
