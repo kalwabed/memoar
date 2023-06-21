@@ -6,7 +6,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "postinstall": "nuxt prepare",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "fmt": "prettier -w --cache '**/*{.ts,.vue}'"
   },
   "devDependencies": {
     "@nuxt/devtools": "^0.6.1",

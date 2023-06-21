@@ -41,27 +41,54 @@ const onSignUp = async () => {
 
 <template>
   <div class="container paper">
-    <h1>Sign Up</h1>
-    <form @submit.prevent="onSignUp">
-      <div class="form-group" role="group">
+    <h1 class="text-4xl font-bold leading-relaxed">Sign Up</h1>
+    <form @submit.prevent="onSignUp" class="flex flex-col gap-4 mt-4">
+      <div role="group" class="flex flex-col gap-2">
         <label for="fullname">Fullname</label>
-        <input id="fullname" class="px-4 py-2 rd b b-gray3 hover:b-gray4 transition outline-none focus:(ring-2 b-transparent)" v-model="signUpForm.fullname" />
+        <input
+          id="fullname"
+          class="px-4 py-2 rd b b-gray3 hover:b-gray4 transition outline-none focus:(ring-2 b-transparent)"
+          v-model="signUpForm.fullname"
+        />
       </div>
-      <div class="form-group" role="group">
+      <div role="group" class="flex flex-col gap-2">
         <label for="email">Email</label>
-        <input type="email" class="input-block" id="email" v-model="signUpForm.email" />
+        <input
+          type="email"
+          class="px-4 py-2 rd b b-gray3 hover:b-gray4 transition outline-none focus:(ring-2 b-transparent)"
+          id="email"
+          v-model="signUpForm.email"
+        />
       </div>
-      <div class="form-group" role="group">
+      <div role="group" class="flex flex-col gap-2">
         <label for="password">Password</label>
-        <input type="password" class="input-block" id="password" v-model="signUpForm.password" />
+        <input
+          type="password"
+          class="px-4 py-2 rd b b-gray3 hover:b-gray4 transition outline-none focus:(ring-2 b-transparent)"
+          id="password"
+          v-model="signUpForm.password"
+        />
       </div>
-      <div class="form-group" role="group">
+      <div class="flex flex-col gap-2" role="group">
         <label for="rePassword">Repeat Password</label>
-        <input type="password" class="input-block" id="rePassword" v-model="signUpForm.repeatPassword" />
+        <input
+          type="password"
+          class="px-4 py-2 rd b b-gray3 hover:b-gray4 transition outline-none focus:(ring-2 b-transparent)"
+          id="rePassword"
+          v-model="signUpForm.repeatPassword"
+        />
       </div>
 
-      <button class="btn-primary" type="submit">Sign Up</button>
-      <div class="margin-top-large"><span>Already have an account?</span> <NuxtLink to="/login">Login</NuxtLink></div>
+      <button
+        class="py-2 px-4 rd text-center font-semibold outline-none b b-teal3 bg-teal2 c-teal9 hover:(bg-teal1) transition"
+        type="submit"
+      >
+        Sign Up
+      </button>
+      <div class="mt-4">
+        <span>Already have an account?</span>
+        <NuxtLink class="hover:underline c-blue7 focus:ring outline-none transition" to="/login">Login</NuxtLink>
+      </div>
     </form>
   </div>
 </template>
