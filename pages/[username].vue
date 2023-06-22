@@ -57,7 +57,7 @@ useHead({
   <div class="container mt-8">
     <div v-if="user?.id">
       <div class="flex gap-4 pb-4 mb-3 border-b">
-        <ProfilePicture :src="user?.avatar_url" :username="username" alt="profile" :width="100" :height="100" />
+        <ProfilePicture :src="user?.avatar_url" :username="username" alt="profile" :width="70" :height="70" />
         <div class="flex flex-col">
           <h3 class="text-2xl font-bold leading-relaxed">{{ user?.fullname }}</h3>
           <span>@{{ username }}</span>
