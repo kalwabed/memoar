@@ -67,10 +67,10 @@ useHead({
           <i class="i-ph-sign-out w4 h4" />
         </button>
       </div>
-      <form @submit.prevent="onSubmit" v-if="isAddTopic" class="mt-4 flex flex-col">
+      <form @submit.prevent="onSubmit" v-if="isAddTopic" class="mt-4 flex flex-col gap-4">
         <div class="form-group">
           <label for="title">Title</label>
-          <input type="text" id="title" class="input-block" v-model="title" />
+          <input type="text" id="title" class="input" v-model="title" />
         </div>
         <div class="form-group">
           <label for="content">Content</label>

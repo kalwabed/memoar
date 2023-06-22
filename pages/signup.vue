@@ -43,7 +43,7 @@ const onSignUp = async () => {
   <div class="container paper">
     <h1 class="text-4xl font-bold leading-relaxed">Sign Up</h1>
     <form @submit.prevent="onSignUp" class="flex flex-col gap-4 mt-4">
-      <div role="group" class="flex flex-col gap-2">
+      <div role="group" class="form-group">
         <label for="fullname">Fullname</label>
         <input
           id="fullname"
@@ -51,7 +51,7 @@ const onSignUp = async () => {
           v-model="signUpForm.fullname"
         />
       </div>
-      <div role="group" class="flex flex-col gap-2">
+      <div role="group" class="form-group">
         <label for="email">Email</label>
         <input
           type="email"
@@ -60,7 +60,7 @@ const onSignUp = async () => {
           v-model="signUpForm.email"
         />
       </div>
-      <div role="group" class="flex flex-col gap-2">
+      <div role="group" class="form-group">
         <label for="password">Password</label>
         <input
           type="password"
@@ -69,7 +69,7 @@ const onSignUp = async () => {
           v-model="signUpForm.password"
         />
       </div>
-      <div class="flex flex-col gap-2" role="group">
+      <div class="form-group" role="group">
         <label for="rePassword">Repeat Password</label>
         <input
           type="password"

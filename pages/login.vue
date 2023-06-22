@@ -31,7 +31,7 @@ const onLogin = async () => {
     <h1 class="text-4xl font-bold leading-relaxed">Login</h1>
     <p class="c-gray5">Somehow you need to login to get access.</p>
     <form @submit.prevent="onLogin" class="flex flex-col gap-4 mt-4">
-      <div role="group" class="flex flex-col gap-2">
+      <div role="group" class="form-group">
         <label for="email" class="font-medium">Email</label>
         <input
           type="email"
@@ -40,7 +40,7 @@ const onLogin = async () => {
           v-model="loginForm.email"
         />
       </div>
-      <div class="flex flex-col gap-2" role="group">
+      <div class="form-group" role="group">
         <label for="password">Password</label>
         <input
           type="password"
