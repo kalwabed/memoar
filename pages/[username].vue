@@ -62,7 +62,10 @@ useHead({
           <h3 class="text-2xl font-bold leading-relaxed">{{ user?.fullname }}</h3>
           <span>@{{ username }}</span>
         </div>
-        <button @click="logout" class="ml-auto inline-flex gap-2 font-semibold text-sm c-red9 bg-red1 hover:bg-red2 transition outline-none focus:(ring-2 b-transparent) b b-red3 items-center h-full px-4 py-1 rd">
+        <button
+          @click="logout"
+          class="ml-auto inline-flex gap-2 font-semibold text-sm c-red9 bg-red1 hover:bg-red2 transition outline-none focus:(ring-2 b-transparent) b b-red3 items-center h-full px-4 py-1 rd"
+        >
           <span>Sign out</span>
           <i class="i-ph-sign-out w4 h4" />
         </button>
@@ -75,7 +78,7 @@ useHead({
       >
         Add Topic
       </button>
-      <form @submit.prevent="onSubmit" v-if="isAddTopic" class="margin-top">
+      <form @submit.prevent="onSubmit" v-if="isAddTopic" class="mt-4 flex flex-col">
         <div class="form-group">
           <label for="title">Title</label>
           <input type="text" id="title" class="input-block" v-model="title" />
@@ -94,13 +97,23 @@ useHead({
           <button type="submit" class="btn-small btn-secondary margin-top">Send</button>
         </div>
       </form>
-      <h4 v-if="isCurrentUser" class="margin-top">Your Topics</h4>
+      <div class="flex items-center justify-between">
+        <h4 v-if="isCurrentUser" class="my-4 text-xl font-bold leading-relaxed">Your Topics</h4>
+        <button
+          v-if="isCurrentUser"
+          v-show="!isAddTopic"
+          @click="isAddTopic = true"
+          class="btn-small btn-secondary btn-block margin-top-small"
+        >
+          Add Topic
+        </button>
+      </div>
       <Suspense>
         <Topics :enable-delete="isCurrentUser" :user-id="user?.id" />
       </Suspense>
     </div>
 
-    <div class="error" v-else>
+    <div v-else class="flex flex-col items-center justify-center gap-4 text-center padding-8 b b-gray rd">
       <h1>404</h1>
       <p>Sorry, we couldn't find the page you're looking for.</p>
       <button class="btn-small btn-primary margin-top" @click="$router.back()">Go back</button>
@@ -109,31 +122,6 @@ useHead({
 </template>
 
 <style scoped>
-.profile {
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  padding-bottom: 1rem;
-  width: 100%;
-  border-bottom: 1px solid #eaeaea;
-}
-
-.profile button {
-  margin-left: auto;
-}
-
-.error {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  text-align: center;
-  padding: 2rem;
-  border: 1px solid #eaeaea;
-  border-radius: 0.5rem;
-}
-
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s ease-in-out;

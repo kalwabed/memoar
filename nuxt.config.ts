@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  css: ['@unocss/reset/tailwind-compat.css'],
+  css: ['@unocss/reset/tailwind.css'],
   modules: ['@vueuse/nuxt', '@nuxtjs/supabase', '@unocss/nuxt'],
   experimental: {
     typedPages: true,

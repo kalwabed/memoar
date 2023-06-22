@@ -49,13 +49,8 @@ const onLogin = async () => {
           v-model="loginForm.password"
         />
       </div>
-      <button
-        class="py-2 px-4 rd text-center font-semibold outline-none b b-teal3 bg-teal2 c-teal9 hover:(bg-teal1) transition"
-        type="submit"
-      >
-        Login
-      </button>
-      <div class="margin-top-large">
+      <button class="btn-teal" type="submit">Login</button>
+      <div class="mt-4">
         <span> Don't have an account? </span>
         <NuxtLink class="hover:underline c-blue7 focus:ring outline-none transition" to="/signup">Sign up</NuxtLink>
       </div>

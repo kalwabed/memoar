@@ -80,7 +80,7 @@ const onSignUp = async () => {
       </div>
 
       <button
-        class="py-2 px-4 rd text-center font-semibold outline-none b b-teal3 bg-teal2 c-teal9 hover:(bg-teal1) transition"
+        class="btn-teal"
         type="submit"
       >
         Sign Up

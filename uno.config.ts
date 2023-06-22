@@ -15,7 +15,12 @@ export default defineConfig({
       },
     }),
   ],
-  shortcuts: {
-    container: 'max-w-screen-lg w-full h-full mx-auto px-4 lg:px0',
-  },
+  shortcuts: [
+    { container: 'max-w-screen-lg w-full h-full mx-auto px-4 lg:px0' },
+    [
+      /^btn-(.*)$/,
+      ([, c]) =>
+        `bg-${c}-200 text-${c}-900 py-2 px-4 rd outline-none font-semibold b b-${c}-300 hover:bg-${c}-100 transition`,
+    ],
+  ],
 })
