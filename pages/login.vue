@@ -35,7 +35,7 @@ const onLogin = async () => {
         <label for="email" class="font-medium">Email</label>
         <input
           type="email"
-          class="px-4 py-2 rd b b-gray3 hover:b-gray4 transition outline-none focus:(ring-2 b-transparent)"
+          class="input"
           id="email"
           v-model="loginForm.email"
         />
@@ -44,7 +44,7 @@ const onLogin = async () => {
         <label for="password">Password</label>
         <input
           type="password"
-          class="px-4 py-2 rd b b-gray3 hover:b-gray4 transition outline-none focus:(ring-2 b-transparent)"
+          class="input"
           id="password"
           v-model="loginForm.password"
         />

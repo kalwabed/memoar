@@ -47,7 +47,7 @@ const onSignUp = async () => {
         <label for="fullname">Fullname</label>
         <input
           id="fullname"
-          class="px-4 py-2 rd b b-gray3 hover:b-gray4 transition outline-none focus:(ring-2 b-transparent)"
+          class="input"
           v-model="signUpForm.fullname"
         />
       </div>
@@ -55,7 +55,7 @@ const onSignUp = async () => {
         <label for="email">Email</label>
         <input
           type="email"
-          class="px-4 py-2 rd b b-gray3 hover:b-gray4 transition outline-none focus:(ring-2 b-transparent)"
+          class="input"
           id="email"
           v-model="signUpForm.email"
         />
@@ -64,7 +64,7 @@ const onSignUp = async () => {
         <label for="password">Password</label>
         <input
           type="password"
-          class="px-4 py-2 rd b b-gray3 hover:b-gray4 transition outline-none focus:(ring-2 b-transparent)"
+          class="input"
           id="password"
           v-model="signUpForm.password"
         />
@@ -73,18 +73,13 @@ const onSignUp = async () => {
         <label for="rePassword">Repeat Password</label>
         <input
           type="password"
-          class="px-4 py-2 rd b b-gray3 hover:b-gray4 transition outline-none focus:(ring-2 b-transparent)"
+          class="input"
           id="rePassword"
           v-model="signUpForm.repeatPassword"
         />
       </div>
 
-      <button
-        class="btn-teal"
-        type="submit"
-      >
-        Sign Up
-      </button>
+      <button class="btn-teal" type="submit">Sign Up</button>
       <div class="mt-4">
         <span>Already have an account?</span>
         <NuxtLink class="hover:underline c-blue7 focus:ring outline-none transition ml-1" to="/login">Login</NuxtLink>
