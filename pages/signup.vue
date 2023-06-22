@@ -45,38 +45,19 @@ const onSignUp = async () => {
     <form @submit.prevent="onSignUp" class="flex flex-col gap-4 mt-4">
       <div role="group" class="form-group">
         <label for="fullname">Fullname</label>
-        <input
-          id="fullname"
-          class="input"
-          v-model="signUpForm.fullname"
-        />
+        <input id="fullname" class="input" v-model="signUpForm.fullname" />
       </div>
       <div role="group" class="form-group">
         <label for="email">Email</label>
-        <input
-          type="email"
-          class="input"
-          id="email"
-          v-model="signUpForm.email"
-        />
+        <input type="email" class="input" id="email" v-model="signUpForm.email" />
       </div>
       <div role="group" class="form-group">
         <label for="password">Password</label>
-        <input
-          type="password"
-          class="input"
-          id="password"
-          v-model="signUpForm.password"
-        />
+        <input type="password" class="input" id="password" v-model="signUpForm.password" />
       </div>
       <div class="form-group" role="group">
         <label for="rePassword">Repeat Password</label>
-        <input
-          type="password"
-          class="input"
-          id="rePassword"
-          v-model="signUpForm.repeatPassword"
-        />
+        <input type="password" class="input" id="rePassword" v-model="signUpForm.repeatPassword" />
       </div>
 
       <button class="btn-teal" type="submit">Sign Up</button>

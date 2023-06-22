@@ -33,21 +33,11 @@ const onLogin = async () => {
     <form @submit.prevent="onLogin" class="flex flex-col gap-4 mt-4">
       <div role="group" class="form-group">
         <label for="email" class="font-medium">Email</label>
-        <input
-          type="email"
-          class="input"
-          id="email"
-          v-model="loginForm.email"
-        />
+        <input type="email" class="input" id="email" v-model="loginForm.email" />
       </div>
       <div class="form-group" role="group">
         <label for="password">Password</label>
-        <input
-          type="password"
-          class="input"
-          id="password"
-          v-model="loginForm.password"
-        />
+        <input type="password" class="input" id="password" v-model="loginForm.password" />
       </div>
       <button class="btn-teal" type="submit">Login</button>
       <div class="mt-4">

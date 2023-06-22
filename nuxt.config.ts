@@ -6,6 +6,11 @@ export default defineNuxtConfig({
     typedPages: true,
     viewTransition: true,
   },
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+    },
+  },
   devtools: {
     enabled: true,
   },
