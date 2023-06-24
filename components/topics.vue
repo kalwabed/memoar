@@ -42,24 +42,10 @@ async function deleteArticle(id: string) {
 
 <template>
   <div>
-    <NuxtLink v-for="topic in topics" v-if="topics?.length" :key="topic.id" :to="'/topics/' + topic.slug">
-      <CardTopic
-        :topicTitle="topic.title"
-        :topicId="topic.id"
-        :uploadedAt="topic.created_at"
-        :username="topic.users.username"
-        :enableDelete="$props.enableDelete"
-        @deleteArticle="deleteArticle"
-      />
-    </NuxtLink>
+    <div class="relative z-1" v-for="topic in topics" v-if="topics?.length" :key="topic.id">
+      <CardTopic :topic="topic" :enableDelete="$props.enableDelete" @deleteArticle="deleteArticle" />
+    </div>
 
     <p v-else>No topics yet.</p>
   </div>
 </template>
-
-<style scoped>
-a {
-  position: relative;
-  z-index: 1;
-}
-</style>

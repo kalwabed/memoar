@@ -27,29 +27,23 @@ const onLogin = async () => {
 </script>
 
 <template>
-  <div class="paper container">
-    <h1>Login</h1>
-    <form @submit.prevent="onLogin">
+  <div class="max-w-xl w-full mx-auto mt-20 h-full">
+    <h1 class="text-4xl font-bold leading-relaxed">Login</h1>
+    <p class="c-gray5">Somehow you need to login to get access.</p>
+    <form @submit.prevent="onLogin" class="flex flex-col gap-4 mt-4">
       <div role="group" class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="input-block" id="email" v-model="loginForm.email" />
+        <label for="email" class="font-medium">Email</label>
+        <input type="email" class="input" id="email" v-model="loginForm.email" />
       </div>
       <div class="form-group" role="group">
         <label for="password">Password</label>
-        <input type="password" class="input-block" id="password" v-model="loginForm.password" />
+        <input type="password" class="input" id="password" v-model="loginForm.password" />
       </div>
-      <button class="btn-primary" type="submit">Login</button>
-      <div class="margin-top-large">
+      <button class="btn-teal" type="submit">Login</button>
+      <div class="mt-4">
         <span> Don't have an account? </span>
-        <NuxtLink to="/signup">Sign up</NuxtLink>
+        <NuxtLink class="hover:underline c-blue7 focus:ring outline-none transition" to="/signup">Sign up</NuxtLink>
       </div>
     </form>
   </div>
 </template>
-
-<style scoped>
-.container {
-  max-width: 600px;
-  margin-top: 5rem;
-}
-</style>

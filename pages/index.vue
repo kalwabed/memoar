@@ -3,29 +3,23 @@ useHead({
   title: 'Home',
 })
 
-const authClient = useSupabaseAuthClient()
 const user = useSupabaseUser()
-
-const onLogout = async () => {
-  await authClient.auth.signOut()
-  navigateTo('/login')
-}
 </script>
 
 <template>
-  <div class="paper container">
-    <section>
-      <h2>Welcome, {{ user?.email }}</h2>
-      <p>Here we go again</p>
+  <div class="flex flex-col">
+    <section class="bg-slate2 c-slate9 b-y b-slate3 py-15">
+      <div class="container">
+        <h2 class="text-2xl md:text-4xl font-bold leading-relaxed">Welcome, {{ user?.email }}</h2>
+        <p>Here we go again</p>
+      </div>
     </section>
 
-    <button class="btn-small btn-danger-outline" @click="onLogout">Logout</button>
-
-    <section class="margin-top-large">
-      <h3>Latest topics</h3>
-      <small>Hope you enjoy</small>
-    </section>
-    <div class="margin-top-small">
+    <div class="container">
+      <section class="mt-8 mb-4">
+        <h3 class="text-xl font-bold">Latest topics</h3>
+        <small>Hope you enjoy</small>
+      </section>
       <Suspense>
         <Topics :enable-delete="false" />
       </Suspense>

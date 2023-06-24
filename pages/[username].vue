@@ -43,33 +43,34 @@ const onSubmit = async () => {
   }
 }
 
+const logout = async () => {
+  await client.auth.signOut()
+  await navigateTo('/login')
+}
+
 useHead({
   title: username,
 })
 </script>
 
 <template>
-  <div class="paper container">
+  <div class="container mt-8">
     <div v-if="user?.id">
-      <div class="profile">
-        <ProfilePicture :src="user?.avatar_url" :username="username" alt="profile" :width="100" :height="100" />
-        <div class="name">
-          <h3>{{ user?.fullname }}</h3>
+      <div class="flex gap-4 pb-4 mb-3 border-b">
+        <ProfilePicture :src="user?.avatar_url" :username="username" alt="profile" :width="70" :height="70" />
+        <div class="flex flex-col">
+          <h3 class="text-2xl font-bold leading-relaxed">{{ user?.fullname }}</h3>
           <span>@{{ username }}</span>
         </div>
+        <button @click="logout" class="ml-auto btn-red text-sm px-4 py-1">
+          <span>Sign out</span>
+          <i class="i-ph-sign-out w4 h4" />
+        </button>
       </div>
-      <button
-        v-if="isCurrentUser"
-        v-show="!isAddTopic"
-        @click="isAddTopic = true"
-        class="btn-small btn-secondary btn-block margin-top-small"
-      >
-        Add Topic
-      </button>
-      <form @submit.prevent="onSubmit" v-if="isAddTopic" class="margin-top">
+      <form @submit.prevent="onSubmit" v-if="isAddTopic" class="mt-4 flex flex-col gap-4">
         <div class="form-group">
           <label for="title">Title</label>
-          <input type="text" id="title" class="input-block" v-model="title" />
+          <input type="text" id="title" class="input" v-model="title" />
         </div>
         <div class="form-group">
           <label for="content">Content</label>
@@ -80,51 +81,29 @@ useHead({
             :toolbar="['bold', 'italic', 'underline', 'code', 'strike', 'link']"
           />
         </div>
-        <div class="margin-top">
-          <button class="btn-small margin-right-small" @click.stop.prevent="isAddTopic = false">Cancel</button>
-          <button type="submit" class="btn-small btn-secondary margin-top">Send</button>
+        <div class="mt-4 inline-flex gap-3">
+          <button class="btn-gray py-1 text-sm" @click.stop.prevent="isAddTopic = false">Cancel</button>
+          <button type="submit" class="btn-teal py-1 text-sm">Send</button>
         </div>
       </form>
-      <h4 v-if="isCurrentUser" class="margin-top">Your Topics</h4>
+      <div class="flex items-center justify-between">
+        <h4 v-if="isCurrentUser" class="my-4 text-xl font-bold leading-relaxed">Your Topics</h4>
+        <button v-if="isCurrentUser" v-show="!isAddTopic" @click="isAddTopic = true" class="btn-blue">Add Topic</button>
+      </div>
       <Suspense>
         <Topics :enable-delete="isCurrentUser" :user-id="user?.id" />
       </Suspense>
     </div>
 
-    <div class="error" v-else>
+    <div v-else class="flex flex-col items-center justify-center gap-4 text-center padding-8 b b-gray rd">
       <h1>404</h1>
       <p>Sorry, we couldn't find the page you're looking for.</p>
-      <button class="btn-small btn-primary margin-top" @click="$router.back()">Go back</button>
+      <button class="btn-red" @click="$router.back()">Go back</button>
     </div>
   </div>
 </template>
 
 <style scoped>
-.profile {
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  padding-bottom: 1rem;
-  width: 100%;
-  border-bottom: 1px solid #eaeaea;
-}
-
-.profile button {
-  margin-left: auto;
-}
-
-.error {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  text-align: center;
-  padding: 2rem;
-  border: 1px solid #eaeaea;
-  border-radius: 0.5rem;
-}
-
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s ease-in-out;

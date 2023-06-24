@@ -15,7 +15,7 @@ const { data: topic } = await useAsyncData(slug, async () => {
 })
 
 const dateFormatSystem = computed(() => {
-  return new Date(topic.value?.created_at ?? '').toISOString()
+  return new Date(topic.value?.created_at ?? '').toUTCString()
 })
 
 const dateFormatDisplay = computed(() => {
@@ -28,11 +28,11 @@ useHead({
 </script>
 
 <template>
-  <div class="container">
-    <article class="article">
-      <h1 class="article-title">{{ topic?.title }}</h1>
-      <div class="article-meta">
-        <div class="profile">
+  <div class="container max-w-2xl">
+    <article class="flex flex-col">
+      <h1 class="text-4xl font-bold leading-relaxed text-balance">{{ topic?.title }}</h1>
+      <div class="flex justify-between items-center text-sm c-gray6 my-4 b-b pb-4">
+        <div class="inline-flex items-center gap-2">
           <ProfilePicture
             :username="topic?.users.username"
             :src="topic?.users.avatar_url"
@@ -41,30 +41,14 @@ useHead({
             loading="lazy"
             decoding="async"
           />
-          <NuxtLink :to="'/' + topic?.users.username">@{{ topic?.users.username }} </NuxtLink>
+          <NuxtLink class="hover:bg-gray1" :to="'/' + topic?.users.username">@{{ topic?.users.username }} </NuxtLink>
         </div>
         <time :datetime="dateFormatSystem" :title="dateFormatSystem">
           {{ dateFormatDisplay }}
         </time>
       </div>
-      <div v-html="topic?.content"></div>
+      <div class="prose text-base xl:text-lg" v-html="topic?.content"></div>
     </article>
   </div>
 </template>
 
-<style scoped>
-.article-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 1rem;
-}
-
-.profile {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-</style>
