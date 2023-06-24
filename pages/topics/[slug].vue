@@ -52,10 +52,3 @@ useHead({
   </div>
 </template>
 
-<style scoped>
-.profile {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-</style>
