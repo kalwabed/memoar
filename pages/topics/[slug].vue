@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useDateFormat } from '@vueuse/core'
+import UpdateTopic from 'components/update-topic.vue'
 
 import { Database, Topic } from '~/types/database'
 
@@ -16,7 +17,8 @@ const { data: topic } = await useAsyncData(slug, async () => {
   return data as Topic & { users: { id: string; username: string; avatar_url: string } }
 })
 
-const editorValue = ref(topic?.value?.content ?? '')
+const editor = ref(topic?.value?.content ?? '')
+const title = ref(topic?.value?.title ?? '')
 
 const dateFormatSystem = computed(() => {
   return new Date(topic.value?.created_at ?? '').toUTCString()
@@ -29,7 +31,7 @@ const dateFormatDisplay = computed(() => {
 async function updateTopic() {
   try {
     toggleLoading()
-    return await client.from('topics').update({ content: editorValue.value }).eq('slug', slug).single()
+    return await client.from('topics').update({ content: editor.value, title: title.value }).eq('slug', slug)
   } catch (error) {
     console.error(error)
   } finally {
@@ -54,8 +56,17 @@ useHead({
       <i class="i-ph:pencil w-4 h-4"></i>
       Edit
     </button>
-    <article class="flex flex-col">
-      <h1 class="text-4xl font-bold leading-relaxed text-balance">{{ topic?.title }}</h1>
+    <template v-if="isEdit">
+      <UpdateTopic
+        :isLoading="isLoading"
+        v-model:editor="editor"
+        v-model:title="title"
+        @toggleEdit="toggleEdit"
+        @updateTopic="updateTopic"
+      />
+    </template>
+    <article v-else class="flex flex-col">
+      <h1 class="text-4xl font-bold leading-relaxed text-balance">{{ title }}</h1>
       <div class="flex justify-between items-center text-sm c-gray6 my-4 b-b pb-4">
         <div class="inline-flex items-center gap-2">
           <ProfilePicture
@@ -72,20 +83,8 @@ useHead({
           {{ dateFormatDisplay }}
         </time>
       </div>
-      <div v-if="isEdit" class="flex flex-col">
-        <LazyEditor contentType="html" id="content" v-model:content="editorValue" :readOnly="isLoading" />
-        <div class="flex gap-2 ml-auto">
-          <button class="btn-gray btn-sm mt-2" @click="toggleEdit()" :disabled="isLoading">Cancel</button>
-          <button class="btn-blue btn-sm mt-2" @click="updateTopic()" :disabled="isLoading">
-            <template v-if="isLoading"> Loading... </template>
-            <template v-else>
-              <i class="i-ph:floppy-disk-bold w-4 h-4"></i>
-              Save
-            </template>
-          </button>
-        </div>
-      </div>
-      <div v-if="!isEdit" class="prose text-base xl:text-lg" v-html="topic?.content"></div>
+
+      <div class="prose text-base xl:text-lg" v-html="topic?.content"></div>
     </article>
   </div>
 </template>
