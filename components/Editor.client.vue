@@ -4,5 +4,5 @@ import { QuillEditor } from '@vueup/vue-quill'
 </script>
 
 <template>
-  <QuillEditor theme="snow" />
+  <QuillEditor theme="snow" :toolbar="['bold', 'italic', 'underline', 'code', 'strike', 'link']" />
 </template>

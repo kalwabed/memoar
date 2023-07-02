@@ -14,6 +14,9 @@ const { data: topic } = await useAsyncData(slug, async () => {
   return data as Topic & { users: { id: string; username: string; avatar_url: string } }
 })
 
+const editorValue = ref(topic?.value?.content ?? '')
+const [isEdit, toggleEdit] = useToggle(false)
+
 const dateFormatSystem = computed(() => {
   return new Date(topic.value?.created_at ?? '').toUTCString()
 })
@@ -47,8 +50,22 @@ useHead({
           {{ dateFormatDisplay }}
         </time>
       </div>
-      <div class="prose text-base xl:text-lg" v-html="topic?.content"></div>
+      <button
+        class="ml-auto px-1 text-sm c-gray-6 hover:c-blue inline-flex gap-1"
+        title="Edit this article"
+        @click="toggleEdit()"
+      >
+        <i class="i-ph:pencil w-4 h-4"></i>
+        Edit
+      </button>
+      <div v-if="isEdit" class="flex flex-col">
+        <LazyEditor contentType="html" id="content" v-model:content="editorValue" />
+        <div class="flex gap-2 ml-auto">
+          <button class="btn-gray btn-sm mt-2" @click="toggleEdit()">Cancel</button>
+          <button class="btn-blue btn-sm mt-2">Update</button>
+        </div>
+      </div>
+      <div v-if="!isEdit" class="prose text-base xl:text-lg" v-html="topic?.content"></div>
     </article>
   </div>
 </template>
-
