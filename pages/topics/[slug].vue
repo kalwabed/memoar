@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useDateFormat } from '@vueuse/core'
-import UpdateTopic from 'components/update-topic.vue'
 
+import UpdateTopic from '~/components/update-topic.vue'
 import { Database, Topic } from '~/types/database'
 
 const client = useSupabaseClient<Database>()
+const authClient = useSupabaseAuthClient()
 const route = useRoute()
 // @ts-ignore
 const slug: string = route.params.slug
@@ -12,9 +13,28 @@ const slug: string = route.params.slug
 const [isEdit, toggleEdit] = useToggle(false)
 const [isLoading, toggleLoading] = useToggle(false)
 const { data: topic } = await useAsyncData(slug, async () => {
-  const { data } = await client.from('topics').select('*, users ( id, username ,avatar_url )').eq('slug', slug).single()
+  const [{ data }, { data: authData }] = await Promise.all([
+    client.from('topics').select('*, users ( id, username ,avatar_url )').eq('slug', slug).single(),
+    authClient.auth.getUser(),
+  ])
 
-  return data as Topic & { users: { id: string; username: string; avatar_url: string } }
+  let ableToUpdate = false
+  const topicData: Topic & {
+    user_id: string
+    ableToUpdate: boolean
+    users: { id: string; username: string; avatar_url: string }
+  } = data
+
+  if (authData?.user?.id === topicData?.user_id) {
+    ableToUpdate = true
+  } else {
+    ableToUpdate = false
+  }
+
+  return {
+    ...topicData,
+    ableToUpdate,
+  }
 })
 
 const editor = ref(topic?.value?.content ?? '')
@@ -47,8 +67,9 @@ useHead({
 </script>
 
 <template>
-  <div class="container max-w-2xl">
+  <div class="container max-w-2xl mt-4 flex flex-col">
     <button
+      v-if="topic?.ableToUpdate"
       class="ml-auto px-1 text-sm c-gray-6 hover:c-blue inline-flex gap-1"
       title="Edit this article"
       @click="toggleEdit()"

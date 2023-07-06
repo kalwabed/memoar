@@ -3,7 +3,7 @@
     <Suspense>
       <Navbar />
     </Suspense>
-    <main>
+    <main class="h-full">
       <slot />
     </main>
   </div>
