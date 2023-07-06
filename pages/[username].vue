@@ -74,12 +74,7 @@ useHead({
         </div>
         <div class="form-group">
           <label for="content">Content</label>
-          <LazyEditor
-            contentType="html"
-            id="content"
-            v-model:content="editorValue"
-            :toolbar="['bold', 'italic', 'underline', 'code', 'strike', 'link']"
-          />
+          <LazyEditor contentType="html" id="content" v-model:content="editorValue" />
         </div>
         <div class="mt-4 inline-flex gap-3">
           <button class="btn-gray py-1 text-sm" @click.stop.prevent="isAddTopic = false">Cancel</button>
@@ -95,7 +90,7 @@ useHead({
       </Suspense>
     </div>
 
-    <div v-else class="flex flex-col items-center justify-center gap-4 text-center padding-8 b b-gray rd">
+    <div v-else class="flex flex-col items-center justify-center gap-4 text-center p-8 b b-gray rd">
       <h1>404</h1>
       <p>Sorry, we couldn't find the page you're looking for.</p>
       <button class="btn-red" @click="$router.back()">Go back</button>
