@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Logo from '~/assets/logo.jpg'
 import { User } from '~/types/database'
 
 const authClient = useSupabaseAuthClient()
@@ -16,15 +17,36 @@ const { data: user } = await useAsyncData(`session-${userAuth?.user?.id}`, async
 </script>
 
 <template>
-  <nav class="w-full flex items-center max-w-screen-xl px-4 lg:px0 py4 mx-auto justify-between">
-    <NuxtLink class="text-3xl font-bold" to="/">Memoar</NuxtLink>
+  <nav class="w-full grid grid-cols-3 items-center max-w-screen-lg px-4 lg:px0 py4 mx-auto">
+    <NuxtLink to="/" class="inline-flex items-center gap-1.5">
+      <img :src="Logo" alt="Logo" class="w5 h5 rd-full" />
+      <span class="text-2xl font-bold font-display c-teal9">memoar.in</span>
+    </NuxtLink>
 
-    <ul>
+    <ul class="text-center inline-flex gap3 justify-center">
       <li>
-        <NuxtLink class="underline font-medium" title="to Profile page" :to="'/' + user?.username"
-          >@{{ user?.username }}</NuxtLink
-        >
+        <NuxtLink class="header_link" title="to Home page" to="/">Home</NuxtLink>
+      </li>
+      <li>
+        <NuxtLink class="header_link" title="to Popular page" to="/populars">Popular</NuxtLink>
+      </li>
+      <li>
+        <NuxtLink class="header_link" title="to About page" to="/about">About</NuxtLink>
       </li>
     </ul>
+
+    <div class="text-right">
+      <NuxtLink class="header_link" title="to Profile page" :to="'/' + user?.username">@{{ user?.username }}</NuxtLink>
+    </div>
   </nav>
 </template>
+
+<style scoped>
+.header_link {
+  @apply text-sm font-medium rd-lg p2 pb.8 transition b-b-2 b-transparent outline-none hover:(b-slate3 bg-slate1) focus:(b-teal);
+}
+
+.router-link-active {
+  @apply b-teal;
+}
+</style>
