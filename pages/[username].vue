@@ -14,7 +14,7 @@ const userAuth = useSupabaseUser()
 const username: string = route.params.username
 
 const { data: user } = await useAsyncData(username, async () => {
-  const { data } = (await client.from('users').select('*').eq('username', username).single()) as { data: User }
+  const { data } = await client.from(USERS_TABLE).select('*').eq('username', username).single<User>()
 
   return data
 })
@@ -25,14 +25,20 @@ const isCurrentUser = computed(() => {
 
 const onSubmit = async () => {
   try {
-    await client.from('posts').insert([
-      {
-        title: title.value,
-        user_id: userAuth.value?.id,
-        content: editorValue.value,
-        slug: generateSlug(title.value),
-      },
-    ])
+    const { data: post } = await client
+      .from(POSTS_TABLE)
+      .insert([
+        {
+          title: title.value,
+          user_id: userAuth.value?.id,
+          content: editorValue.value,
+          slug: generateSlug(title.value),
+        },
+      ])
+      .select('id')
+      .single<{ id: string }>()
+    await client.from(POST_ANALYTICS_TABLE).insert({ post_id: post?.id })
+
     editorValue.value = ''
     title.value = ''
     isAddPost.value = false

@@ -23,14 +23,6 @@ export default defineNuxtConfig({
     propsDestructure: true,
     defineModel: true,
   },
-  vite: {
-    build: {
-      cssMinify: 'lightningcss',
-    },
-    css: {
-      transformer: 'lightningcss',
-    },
-  },
   typescript: {
     tsConfig: {
       compilerOptions: {
