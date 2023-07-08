@@ -3,7 +3,7 @@ import { Database, User } from '~/types/database'
 
 const editorValue = ref('')
 const title = ref('')
-const isAddTopic = ref(false)
+const isAddPost = ref(false)
 
 const route = useRoute()
 
@@ -25,7 +25,7 @@ const isCurrentUser = computed(() => {
 
 const onSubmit = async () => {
   try {
-    await client.from('topics').insert([
+    await client.from('posts').insert([
       {
         title: title.value,
         user_id: userAuth.value?.id,
@@ -35,11 +35,11 @@ const onSubmit = async () => {
     ])
     editorValue.value = ''
     title.value = ''
-    isAddTopic.value = false
+    isAddPost.value = false
   } catch (error) {
     console.error(error)
   } finally {
-    await refreshNuxtData(`${userAuth.value?.id}-topics`)
+    await refreshNuxtData(`${userAuth.value?.id}-posts`)
   }
 }
 
@@ -67,7 +67,7 @@ useHead({
           <i class="i-ph-sign-out w4 h4" />
         </button>
       </div>
-      <form @submit.prevent="onSubmit" v-if="isAddTopic" class="mt-4 flex flex-col gap-4">
+      <form @submit.prevent="onSubmit" v-if="isAddPost" class="mt-4 flex flex-col gap-4">
         <div class="form-group">
           <label for="title">Title</label>
           <input type="text" id="title" class="input" v-model="title" />
@@ -77,16 +77,16 @@ useHead({
           <LazyEditor contentType="html" id="content" v-model:content="editorValue" />
         </div>
         <div class="mt-4 inline-flex gap-3">
-          <button class="btn-gray py-1 text-sm" @click.stop.prevent="isAddTopic = false">Cancel</button>
+          <button class="btn-gray py-1 text-sm" @click.stop.prevent="isAddPost = false">Cancel</button>
           <button type="submit" class="btn-teal py-1 text-sm">Send</button>
         </div>
       </form>
       <div class="flex items-center justify-between">
-        <h4 v-if="isCurrentUser" class="my-4 text-xl font-bold leading-relaxed">Your Topics</h4>
-        <button v-if="isCurrentUser" v-show="!isAddTopic" @click="isAddTopic = true" class="btn-blue">Add Topic</button>
+        <h4 v-if="isCurrentUser" class="my-4 text-xl font-bold leading-relaxed">Your Posts</h4>
+        <button v-if="isCurrentUser" v-show="!isAddPost" @click="isAddPost = true" class="btn-blue">Add Post</button>
       </div>
       <Suspense>
-        <Topics :enable-delete="isCurrentUser" :user-id="user?.id" />
+        <Posts :enable-delete="isCurrentUser" :user-id="user?.id" />
       </Suspense>
     </div>
 

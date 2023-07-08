@@ -2,7 +2,7 @@
 defineProps<{ isLoading: boolean }>()
 defineEmits<{
   toggleEdit: []
-  updateTopic: []
+  updatePost: []
 }>()
 
 // TODO: maybe we can use defineExpose here to expose the title and editorModel
@@ -23,7 +23,7 @@ const titleModel = defineModel<string>('title')
     <LazyEditor contentType="html" id="content" v-model:content="editorModel" :readOnly="isLoading" />
     <div class="flex gap-2 ml-auto">
       <button class="btn-gray btn-sm mt-2" @click="$emit('toggleEdit')" :disabled="isLoading">Cancel</button>
-      <button class="btn-blue btn-sm mt-2" @click="$emit('updateTopic')" :disabled="isLoading">
+      <button class="btn-blue btn-sm mt-2" @click="$emit('updatePost')" :disabled="isLoading">
         <template v-if="isLoading"> Loading... </template>
         <template v-else>
           <i class="i-ph:floppy-disk-bold w-4 h-4"></i>

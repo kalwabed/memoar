@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Topic } from '~/types/database'
+import type { Post } from '~/types/database'
 
-const { topic } = defineProps<{
-  topic: Topic & {
+const { post } = defineProps<{
+  post: Post & {
     users: {
       username: string
     }
@@ -11,11 +11,11 @@ const { topic } = defineProps<{
 }>()
 
 defineEmits<{
-  (e: 'deleteArticle', topicId: string): void
+  (e: 'deleteArticle', postId: string): void
 }>()
 
 const publishedAt = computed(() => {
-  const dateUpload = new Date(topic.created_at)
+  const dateUpload = new Date(post.created_at)
 
   return useDateFormat(dateUpload, 'DD MMM, HH:mm', { locales: 'id' }).value
 })
@@ -25,26 +25,26 @@ const publishedAt = computed(() => {
   <div class="relative p4 flex mb-2 rd bg-blue1 c-blue-900 b b-blue3 shadow-sm hover:(b-blue4 shadow-md) transition">
     <div class="flex flex-col">
       <NuxtLink
-        :to="topic.users.username"
+        :to="post.users.username"
         class="font-medium text-sm c-blue7 hover:underline inline-flex items-center gap-2 mb-.5"
       >
-        <ProfilePicture :username="topic.users.username" :width="20" :height="20" />
-        <span>@{{ topic.users.username }}</span>
+        <ProfilePicture :username="post.users.username" :width="20" :height="20" />
+        <span>@{{ post.users.username }}</span>
       </NuxtLink>
-      <NuxtLink :to="'/topics/' + topic.slug" class="text-xl font-semibold hover:underline leading-relaxed">
-        {{ topic.title }}
+      <NuxtLink :to="'/posts/' + post.slug" class="text-xl font-semibold hover:underline leading-relaxed">
+        {{ post.title }}
       </NuxtLink>
       <time
         class="text-xs"
-        :title="new Date(topic.created_at).toString()"
-        :datetime="new Date(topic.created_at).toISOString()"
+        :title="new Date(post.created_at).toString()"
+        :datetime="new Date(post.created_at).toISOString()"
         >{{ publishedAt }}</time
       >
     </div>
     <button
       v-if="enableDelete"
       popover-top="Delete article"
-      @click.stop.prevent="$emit('deleteArticle', topic.id)"
+      @click.stop.prevent="$emit('deleteArticle', post.id)"
       class="card-link btn-small btn-danger"
     >
       🔥

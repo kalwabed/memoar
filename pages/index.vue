@@ -17,11 +17,11 @@ const user = useSupabaseUser()
 
     <div class="container">
       <section class="mt-8 mb-4">
-        <h3 class="text-xl font-bold">Latest topics</h3>
+        <h3 class="text-xl font-bold">Latest posts</h3>
         <small class="c-gray-5">Hope you enjoy</small>
       </section>
       <Suspense>
-        <Topics :enable-delete="false" />
+        <Posts :enable-delete="false" />
       </Suspense>
     </div>
   </div>
