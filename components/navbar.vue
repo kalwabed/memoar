@@ -8,11 +8,11 @@ const client = useSupabaseClient()
 const { data: userAuth } = await authClient.auth.getUser()
 
 const { data: user } = await useAsyncData(`session-${userAuth?.user?.id}`, async () => {
-  const { data, error } = await client.from('users').select('*').eq('id', userAuth?.user?.id).single()
+  const { data, error } = await client.from(USERS_TABLE).select('*').eq('id', userAuth?.user?.id).single<User>()
 
-  if (error) throw error
+  if (error) throw new Error(error.message)
 
-  return data as User
+  return data
 })
 </script>
 

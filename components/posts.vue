@@ -11,7 +11,7 @@ const client = useSupabaseClient<Database>()
 const { data: posts } = await useAsyncData(props.userId ? `${props.userId}-posts` : 'posts', async () => {
   if (props.userId) {
     const { data: postsByUserId } = await client
-      .from('posts')
+      .from(POSTS_TABLE)
       .select('*, users(username)')
       .eq('user_id', props.userId)
       .order('created_at', { ascending: false })
@@ -19,7 +19,7 @@ const { data: posts } = await useAsyncData(props.userId ? `${props.userId}-posts
     return postsByUserId as (Post & { users: { username: string } })[]
   }
   const { data: allPosts } = await client
-    .from('posts')
+    .from(POSTS_TABLE)
     .select('*, users(username)')
     .order('created_at', { ascending: false })
 
@@ -31,7 +31,7 @@ async function deleteArticle(id: string) {
   if (!isConfirm || !id) return
 
   try {
-    await client.from('posts').delete().eq('id', id)
+    await client.from(POSTS_TABLE).delete().eq('id', id)
   } catch (error) {
     console.error(error)
   } finally {

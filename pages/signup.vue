@@ -30,7 +30,7 @@ const onSignUp = async () => {
   const username = uniqueUsername(signUpForm.fullname)
 
   const { data } = await dbClient
-    .from('users')
+    .from(USERS_TABLE)
     .insert({ username, fullname: signUpForm.fullname, id: authData.user?.id })
     .select('fullname')
 
