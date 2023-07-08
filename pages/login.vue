@@ -27,12 +27,12 @@ const onLogin = async () => {
 </script>
 
 <template>
-  <div class="max-w-xl w-full mx-auto mt-20 h-full">
+  <div>
     <h1 class="text-4xl font-bold leading-relaxed">Login</h1>
     <p class="c-gray5">Somehow you need to login to get access.</p>
     <form @submit.prevent="onLogin" class="flex flex-col gap-4 mt-4">
       <div role="group" class="form-group">
-        <label for="email" class="font-medium">Email</label>
+        <label for="email">Email</label>
         <input type="email" class="input" id="email" v-model="loginForm.email" />
       </div>
       <div class="form-group" role="group">

@@ -35,8 +35,11 @@ export default defineConfig({
   ],
   shortcuts: [
     { container: 'max-w-screen-lg w-full h-full mx-auto px-4 lg:px0' },
-    { input: 'px-4 py-2 rd b b-gray3 hover:b-gray4 transition outline-none focus:(ring-2 b-transparent)' },
-    { 'form-group': 'flex flex-col gap-2' },
+    {
+      input:
+        'block w-full disabled:(cursor-not-allowed opacity-75) focus:(outline-none ring-2 ring-teal-500) b-0 rd-md placeholder-gray-400 text-sm px-2.5 py-2 shadow-sm bg-white text-gray-900 ring-1 ring-inset ring-gray-300',
+    },
+    { 'form-group': 'flex flex-col gap-1' },
     [
       /^btn-(.*)$/,
       ([, c]) =>

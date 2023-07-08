@@ -207,7 +207,7 @@ export interface Database {
   }
 }
 
-export interface Topic {
+export interface Post {
   id: string
   title: string
   slug: string
