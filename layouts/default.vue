@@ -7,7 +7,7 @@
       <slot />
     </main>
     <footer class="wfull py-2">
-      <p class="text-center">All rights reserved. &copy; 2023</p>
+      <p class="text-center c-gray5">All rights reserved. &copy; 2023</p>
     </footer>
   </div>
 </template>

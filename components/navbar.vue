@@ -18,10 +18,10 @@ const { data: user } = await useAsyncData(`session-${userAuth?.user?.id}`, async
 
 <template>
   <nav class="w-full grid grid-cols-3 items-center max-w-screen-lg px-4 lg:px0 py4 mx-auto">
-    <div class="inline-flex items-center gap-3">
-      <img :src="Logo" alt="Logo" class="w7 h7 rd-full" />
-      <NuxtLink class="text-xl font-bold" to="/">Memoar</NuxtLink>
-    </div>
+    <NuxtLink to="/" class="inline-flex items-center gap-1.5">
+      <img :src="Logo" alt="Logo" class="w5 h5 rd-full" />
+      <span class="text-2xl font-bold font-display c-teal9">memoar.in</span>
+    </NuxtLink>
 
     <ul class="text-center inline-flex gap3 justify-center">
       <li>

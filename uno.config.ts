@@ -21,6 +21,7 @@ export default defineConfig({
       fonts: {
         sans: 'Inter',
         mono: 'Fira Mono',
+        display: 'MuseoModerno:700',
       },
     }),
     presetTypography({
