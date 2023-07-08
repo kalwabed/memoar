@@ -13,10 +13,10 @@ const slug: string = route.params.slug
 const [isEdit, toggleEdit] = useToggle(false)
 const [isLoading, toggleLoading] = useToggle(false)
 const { data: post } = await useAsyncData(slug, async () => {
-  const [{ data }, { data: authData }] = await Promise.all([
-    client.from('posts').select('*, users ( id, username ,avatar_url )').eq('slug', slug).single(),
-    authClient.auth.getUser(),
-  ])
+  const getUserAuth = authClient.auth.getUser()
+  const getPost = client.from('posts').select('*, users ( id, username ,avatar_url )').eq('slug', slug).single()
+
+  const [{ data }, { data: authData }] = await Promise.all([getPost, getUserAuth])
 
   let ableToUpdate = false
   const postData: Post & {
@@ -64,6 +64,24 @@ async function updatePost() {
 useHead({
   title: post.value?.title,
 })
+
+onMounted(() => {
+  // update view count if user still on the page for 3 seconds
+  setTimeout(async () => {
+    const { data: postAnalytic, error } = await client
+      .from('post-analytics')
+      .select('id, viewer')
+      .eq('post_id', post?.value?.id)
+      .single()
+
+    if (error) throw new Error(error.message)
+
+    await client
+      .from('post-analytics')
+      .update({ viewer: postAnalytic.viewer + 1 })
+      .eq('id', postAnalytic?.id)
+  }, 3000)
+})
 </script>
 
 <template>
@@ -100,6 +118,7 @@ useHead({
           />
           <NuxtLink class="hover:bg-gray1" :to="'/' + post?.users.username">@{{ post?.users.username }} </NuxtLink>
         </div>
+
         <time :datetime="dateFormatSystem" :title="dateFormatSystem">
           {{ dateFormatDisplay }}
         </time>
