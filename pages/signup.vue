@@ -40,7 +40,7 @@ const onSignUp = async () => {
 </script>
 
 <template>
-  <div class="container paper">
+  <div>
     <h1 class="text-4xl font-bold leading-relaxed">Sign Up</h1>
     <form @submit.prevent="onSignUp" class="flex flex-col gap-4 mt-4">
       <div role="group" class="form-group">
@@ -68,10 +68,3 @@ const onSignUp = async () => {
     </form>
   </div>
 </template>
-
-<style scoped>
-.container {
-  max-width: 600px;
-  margin-top: 4rem;
-}
-</style>
