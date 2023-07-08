@@ -25,14 +25,20 @@ const isCurrentUser = computed(() => {
 
 const onSubmit = async () => {
   try {
-    await client.from('posts').insert([
-      {
-        title: title.value,
-        user_id: userAuth.value?.id,
-        content: editorValue.value,
-        slug: generateSlug(title.value),
-      },
-    ])
+    const { data: post } = await client
+      .from('posts')
+      .insert([
+        {
+          title: title.value,
+          user_id: userAuth.value?.id,
+          content: editorValue.value,
+          slug: generateSlug(title.value),
+        },
+      ])
+      .select('id')
+      .single()
+    await client.from('post-analytics').insert({ post_id: post?.id })
+
     editorValue.value = ''
     title.value = ''
     isAddPost.value = false
