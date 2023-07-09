@@ -1,4 +1,10 @@
-export type Json = string | number | boolean | null | { [key: string]: Json } | Json[]
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json }
+  | Json[]
 
 export interface Database {
   graphql_public: {
@@ -28,7 +34,98 @@ export interface Database {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      post_analytics: {
+        Row: {
+          created_at: string | null
+          id: string
+          post_id: string | null
+          viewer: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          post_id?: string | null
+          viewer?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          post_id?: string | null
+          viewer?: number | null
+        }
+      }
+      posts: {
+        Row: {
+          content: string | null
+          created_at: string | null
+          id: string
+          slug: string
+          title: string
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string | null
+          id?: string
+          slug: string
+          title: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          content?: string | null
+          created_at?: string | null
+          id?: string
+          slug?: string
+          title?: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+      }
+      reactions: {
+        Row: {
+          created_at: string | null
+          id: string
+          post_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          post_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          post_id?: string | null
+          user_id?: string | null
+        }
+      }
+      users: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          fullname: string
+          id: string
+          username: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          fullname: string
+          id?: string
+          username: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          fullname?: string
+          id?: string
+          username?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never
@@ -207,19 +304,3 @@ export interface Database {
   }
 }
 
-export interface Post {
-  id: string
-  title: string
-  slug: string
-  content: string
-  updated_at: string
-  created_at: string
-}
-
-export interface User {
-  id: string
-  username: string
-  fullname: string
-  avatar_url: string
-  created_at: string
-}

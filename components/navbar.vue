@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import { Database } from 'types/database'
 import Logo from '~/assets/logo.jpg'
-import { User } from '~/types/database'
 
 const authClient = useSupabaseAuthClient()
-const client = useSupabaseClient()
+const client = useSupabaseClient<Database>()
 
 const { data: userAuth } = await authClient.auth.getUser()
 
 const { data: user } = await useAsyncData(`session-${userAuth?.user?.id}`, async () => {
-  const { data, error } = await client.from(USERS_TABLE).select('*').eq('id', userAuth?.user?.id).single<User>()
+  const { data, error } = await client.from(USERS_TABLE).select('*').eq('id', userAuth?.user?.id).single()
 
   if (error) throw new Error(error.message)
 

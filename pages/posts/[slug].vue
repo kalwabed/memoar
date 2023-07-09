@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useDateFormat } from '@vueuse/core'
+import { Database } from 'types/database'
+import { Post } from 'types/entities'
 
 import UpdatePost from '~/components/update-post.vue'
-import { Database, Post } from '~/types/database'
 
 const client = useSupabaseClient<Database>()
 const authClient = useSupabaseAuthClient()
@@ -19,10 +20,9 @@ const { data: post } = await useAsyncData(slug, async () => {
   const [{ data }, { data: authData }] = await Promise.all([getPost, getUserAuth])
 
   let ableToUpdate = false
+  // @ts-ignore
   const postData: Post & {
-    user_id: string
-    ableToUpdate: boolean
-    users: { id: string; username: string; avatar_url: string }
+    users: { id: string; username: string; avatar_url?: string }
   } = data
 
   if (authData?.user?.id === postData?.user_id) {
