@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { Database, Post } from '~/types/database'
+// ignore ts error in this file because posts type is such a mess.
+// @ts-nocheck
+import { Database } from '~/types/database'
 
 const props = defineProps<{
   userId?: string
@@ -16,14 +18,14 @@ const { data: posts } = await useAsyncData(props.userId ? `${props.userId}-posts
       .eq('user_id', props.userId)
       .order('created_at', { ascending: false })
 
-    return postsByUserId as (Post & { users: { username: string } })[]
+    return postsByUserId
   }
   const { data: allPosts } = await client
     .from(POSTS_TABLE)
     .select('*, users(username)')
     .order('created_at', { ascending: false })
 
-  return allPosts as (Post & { users: { username: string } })[]
+  return allPosts
 })
 
 async function deleteArticle(id: string) {

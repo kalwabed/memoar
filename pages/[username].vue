@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Database, User } from '~/types/database'
+import { Database } from '~/types/database'
 
 const editorValue = ref('')
 const title = ref('')
@@ -14,7 +14,7 @@ const userAuth = useSupabaseUser()
 const username: string = route.params.username
 
 const { data: user } = await useAsyncData(username, async () => {
-  const { data } = await client.from(USERS_TABLE).select('*').eq('username', username).single<User>()
+  const { data } = await client.from(USERS_TABLE).select('*').eq('username', username).single()
 
   return data
 })
