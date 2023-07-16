@@ -9,7 +9,7 @@ You can think of it as a mini blog, for now. You can write your own articles.
 
 ## Tech Stack
 
-**Client:** Vue, Nuxt 3, TypeScript, PaperCSS.
+**Client:** Vue, Nuxt 3, UnoCSS, TypeScript.
 
 **Server:** Supabase.
 
@@ -29,6 +29,14 @@ Then, install dependencies and fetch data to your local machine. **Note that we 
 cd memoar
 pnpm install
 ```
+
+Copy `.env.example` to `.env` and fill in the environment variables from your Supabase project.
+
+```bash
+cp .env.example .env
+```
+
+> **(optional)** Setup your own Supabase local development to develop locally. For more information, visit [Supabase docs](https://supabase.com/docs/guides/getting-started/local-development). Or, you can use your own Supabase project.
 
 Finally, run the development server.
 
