@@ -13,11 +13,11 @@
     "@nuxt/devtools": "^0.6.1",
     "@nuxtjs/supabase": "^0.3.7",
     "@types/node": "^18.16.19",
-    "@unocss/nuxt": "^0.53.1",
-    "@unocss/reset": "^0.53.1",
+    "@unocss/nuxt": "^0.53.5",
+    "@unocss/reset": "^0.53.5",
     "@vueuse/core": "^10.2.0",
     "@vueuse/nuxt": "^10.2.0",
-    "nuxt": "^3.6.2"
+    "nuxt": "^3.6.3"
   },
   "dependencies": {
     "@sindresorhus/slugify": "^2.2.1",
