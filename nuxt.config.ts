@@ -5,6 +5,7 @@ export default defineNuxtConfig({
   experimental: {
     typedPages: true,
     viewTransition: true,
+    typescriptBundlerResolution: true,
   },
   nitro: {
     prerender: {
@@ -24,11 +25,6 @@ export default defineNuxtConfig({
     defineModel: true,
   },
   typescript: {
-    tsConfig: {
-      compilerOptions: {
-        strict: false,
-        moduleResolution: 'bundler',
-      },
-    },
+    strict: false,
   },
 })
