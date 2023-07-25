@@ -80,7 +80,8 @@ const logout = async () => {
     <form @submit.prevent="handleUpdateProfile" class="flex flex-col gap-4" v-if="isEdit">
       <div role="group">
         <label for="username">Username</label>
-        <input class="input" id="username" type="text" v-model="usernameInput" />
+        <input class="input mb1" id="username" type="text" v-model="usernameInput" />
+        <span class="text-xs c-gray5">Minimal 3 huruf, maksimal 15 huruf.</span>
       </div>
       <div role="group">
         <label for="fullname">Fullname</label>
