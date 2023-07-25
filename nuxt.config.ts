@@ -5,7 +5,16 @@ export default defineNuxtConfig({
   experimental: {
     typedPages: true,
     viewTransition: true,
+    typescriptBundlerResolution: true,
   },
+  imports: {
+    dirs: ['./store'],
+  },
+  // routeRules: {
+  //   '/': {
+  //     prerender: false,
+  //   },
+  // },
   nitro: {
     prerender: {
       crawlLinks: true,
@@ -24,11 +33,6 @@ export default defineNuxtConfig({
     defineModel: true,
   },
   typescript: {
-    tsConfig: {
-      compilerOptions: {
-        strict: false,
-        moduleResolution: 'bundler',
-      },
-    },
+    strict: false,
   },
 })

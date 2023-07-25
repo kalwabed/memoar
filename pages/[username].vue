@@ -49,11 +49,6 @@ const onSubmit = async () => {
   }
 }
 
-const logout = async () => {
-  await client.auth.signOut()
-  await navigateTo('/login')
-}
-
 useHead({
   title: username,
 })
@@ -62,17 +57,7 @@ useHead({
 <template>
   <div class="container mt-8">
     <div v-if="user?.id">
-      <div class="flex gap-4 pb-4 mb-3 border-b">
-        <ProfilePicture :src="user?.avatar_url" :username="username" alt="profile" :width="70" :height="70" />
-        <div class="flex flex-col">
-          <h3 class="text-2xl font-bold leading-relaxed">{{ user?.fullname }}</h3>
-          <span>@{{ username }}</span>
-        </div>
-        <button @click="logout" class="ml-auto btn-red text-sm px-4 py-1">
-          <span>Sign out</span>
-          <i class="i-ph-sign-out w4 h4" />
-        </button>
-      </div>
+      <ProfileMeta />
       <form @submit.prevent="onSubmit" v-if="isAddPost" class="mt-4 flex flex-col gap-4">
         <div class="form-group">
           <label for="title">Title</label>
