@@ -7,6 +7,11 @@ export default defineNuxtConfig({
     viewTransition: true,
     typescriptBundlerResolution: true,
   },
+  // routeRules: {
+  //   '/': {
+  //     prerender: false,
+  //   },
+  // },
   nitro: {
     prerender: {
       crawlLinks: true,

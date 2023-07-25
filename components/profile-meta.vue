@@ -2,7 +2,7 @@
 import { Database } from 'types/database'
 import { User } from 'types/entities'
 
-const props = defineProps<{ user: User }>()
+const { user } = defineProps<{ user: User }>()
 
 const usernameInput = ref('')
 const fullnameInput = ref('')
@@ -12,24 +12,45 @@ const client = useSupabaseClient<Database>()
 
 const onEdit = () => {
   isEdit.value = !isEdit.value
-  usernameInput.value = props.user?.username
-  fullnameInput.value = props.user?.fullname
+  usernameInput.value = user?.username
+  fullnameInput.value = user?.fullname
 }
 
 const handleUpdateProfile = async () => {
+  const username = usernameInput.value
+  // regex for valid username
+  const usernameRegex = /^[a-zA-Z0-9_]{3,15}$/
+
+  // test if username is valid
+  if (!usernameRegex.test(username)) {
+    return useNuxtApp().$toast.error('Username can only contain alphanumeric and underscore!', {
+      autoClose: 3000,
+    })
+  }
+
+  try {
+    const savedUser = await client.from('users').select('username').eq('username', username).single()
+
+    if (savedUser?.data.username !== user?.username) {
+      return useNuxtApp().$toast.error('Username is already taken!')
+    }
+  } catch (error) {
+    console.error(error)
+  }
+
   try {
     await client
       .from('users')
       .update({
-        username: usernameInput.value,
+        username,
         fullname: fullnameInput.value,
       })
-      .eq('id', props.user?.id)
+      .eq('id', user?.id)
     isEdit.value = false
-    alert('Profile updated!')
+    useNuxtApp().$toast.success('Profile updated!')
 
-    if (usernameInput.value !== props.user?.username) {
-      return navigateTo(`/${usernameInput.value}`, { replace: true })
+    if (usernameInput.value !== user?.username) {
+      return await navigateTo(`/${usernameInput.value}`, { replace: true })
     }
 
     await refreshNuxtData()
@@ -46,14 +67,16 @@ const logout = async () => {
 
 <template>
   <div class="flex gap-4 pb-4 mb-3 border-b">
-    <ProfilePicture
-      :src="user?.avatar_url"
-      :username="user?.username"
-      alt="profile"
-      title="Your generated profile picture"
-      :width="70"
-      :height="70"
-    />
+    <div>
+      <ProfilePicture
+        :src="user?.avatar_url"
+        :username="user?.username"
+        alt="profile"
+        title="Your generated profile picture"
+        :width="70"
+        :height="70"
+      />
+    </div>
     <form @submit.prevent="handleUpdateProfile" class="flex flex-col gap-4" v-if="isEdit">
       <div role="group">
         <label for="username">Username</label>
