@@ -57,7 +57,7 @@ useHead({
 <template>
   <div class="container mt-8">
     <div v-if="user?.id">
-      <ProfileMeta :user="user" />
+      <ProfileMeta />
       <form @submit.prevent="onSubmit" v-if="isAddPost" class="mt-4 flex flex-col gap-4">
         <div class="form-group">
           <label for="title">Title</label>

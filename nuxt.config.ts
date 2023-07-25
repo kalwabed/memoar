@@ -7,6 +7,9 @@ export default defineNuxtConfig({
     viewTransition: true,
     typescriptBundlerResolution: true,
   },
+  imports: {
+    dirs: ['./store'],
+  },
   // routeRules: {
   //   '/': {
   //     prerender: false,

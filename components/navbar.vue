@@ -4,14 +4,16 @@ import Logo from '~/assets/logo.jpg'
 
 const authClient = useSupabaseAuthClient()
 const client = useSupabaseClient<Database>()
+const { user } = useAuthStore()
 
 const { data: userAuth } = await authClient.auth.getUser()
 
-const { data: user } = await useAsyncData(`session-${userAuth?.user?.id}`, async () => {
+await useAsyncData(`session-${userAuth?.user?.id}`, async () => {
   const { data, error } = await client.from(USERS_TABLE).select('*').eq('id', userAuth?.user?.id).single()
 
   if (error) throw new Error(error.message)
 
+  user.value = data
   return data
 })
 </script>

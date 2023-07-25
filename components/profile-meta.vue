@@ -1,19 +1,17 @@
 <script setup lang="ts">
-import { Database } from 'types/database'
-import { User } from 'types/entities'
-
-const { user } = defineProps<{ user: User }>()
+import { Database } from '~/types/database'
 
 const usernameInput = ref('')
 const fullnameInput = ref('')
 const isEdit = ref(false)
 
+const { user } = useAuthStore()
 const client = useSupabaseClient<Database>()
 
 const onEdit = () => {
   isEdit.value = !isEdit.value
-  usernameInput.value = user?.username
-  fullnameInput.value = user?.fullname
+  usernameInput.value = user.value?.username
+  fullnameInput.value = user.value?.fullname
 }
 
 const handleUpdateProfile = async () => {
@@ -31,7 +29,7 @@ const handleUpdateProfile = async () => {
   try {
     const savedUser = await client.from('users').select('username').eq('username', username).single()
 
-    if (savedUser?.data.username !== user?.username) {
+    if (savedUser?.data.username !== user.value?.username) {
       return useNuxtApp().$toast.error('Username is already taken!')
     }
   } catch (error) {
@@ -45,11 +43,20 @@ const handleUpdateProfile = async () => {
         username,
         fullname: fullnameInput.value,
       })
-      .eq('id', user?.id)
+      .eq('id', user.value?.id)
+
     isEdit.value = false
     useNuxtApp().$toast.success('Profile updated!')
 
-    if (usernameInput.value !== user?.username) {
+    user.value = {
+      ...user.value,
+      fullname: fullnameInput.value,
+    }
+    if (usernameInput.value !== user.value?.username) {
+      user.value = {
+        ...user.value,
+        username,
+      }
       return await navigateTo(`/${usernameInput.value}`, { replace: true })
     }
 
