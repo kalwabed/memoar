@@ -10,11 +10,6 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['./store'],
   },
-  // routeRules: {
-  //   '/': {
-  //     prerender: false,
-  //   },
-  // },
   nitro: {
     prerender: {
       crawlLinks: true,

@@ -5,10 +5,9 @@ const editorValue = ref('')
 const title = ref('')
 const isAddPost = ref(false)
 
+const { user: userStore } = useAuthStore()
 const route = useRoute()
-
 const client = useSupabaseClient<Database>()
-const userAuth = useSupabaseUser()
 
 // @ts-ignore
 const username: string = route.params.username
@@ -20,7 +19,7 @@ const { data: user } = await useAsyncData(username, async () => {
 })
 
 const isCurrentUser = computed(() => {
-  return userAuth?.value?.id === user?.value?.id
+  return userStore?.value?.id === user?.value?.id
 })
 
 const onSubmit = async () => {
@@ -30,7 +29,7 @@ const onSubmit = async () => {
       .insert([
         {
           title: title.value,
-          user_id: userAuth.value?.id,
+          user_id: userStore.value?.id,
           content: editorValue.value,
           slug: generateSlug(title.value),
         },
@@ -45,7 +44,7 @@ const onSubmit = async () => {
   } catch (error) {
     console.error(error)
   } finally {
-    await refreshNuxtData(`${userAuth.value?.id}-posts`)
+    await refreshNuxtData(`${userStore.value?.id}-posts`)
   }
 }
 
@@ -57,7 +56,7 @@ useHead({
 <template>
   <div class="container mt-8">
     <div v-if="user?.id">
-      <ProfileMeta />
+      <ProfileMeta :user="user" />
       <form @submit.prevent="onSubmit" v-if="isAddPost" class="mt-4 flex flex-col gap-4">
         <div class="form-group">
           <label for="title">Title</label>

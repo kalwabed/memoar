@@ -9,12 +9,14 @@ const { user } = useAuthStore()
 const { data: userAuth } = await authClient.auth.getUser()
 
 await useAsyncData(`session-${userAuth?.user?.id}`, async () => {
-  const { data, error } = await client.from(USERS_TABLE).select('*').eq('id', userAuth?.user?.id).single()
+  if (userAuth?.user) {
+    const { data, error } = await client.from(USERS_TABLE).select('*').eq('id', userAuth?.user?.id).single()
 
-  if (error) throw new Error(error.message)
+    if (error) throw new Error(error.message)
 
-  user.value = data
-  return data
+    user.value = data
+    return data
+  }
 })
 </script>
 
@@ -38,7 +40,10 @@ await useAsyncData(`session-${userAuth?.user?.id}`, async () => {
     </ul>
 
     <div class="text-right">
-      <NuxtLink class="header_link" title="to Profile page" :to="'/' + user?.username">@{{ user?.username }}</NuxtLink>
+      <NuxtLink v-if="user" class="header_link" title="to profile page" :to="'/' + user?.username"
+        >@{{ user?.username }}</NuxtLink
+      >
+      <NuxtLink v-else class="header_link" title="to login page" to="/login">Login</NuxtLink>
     </div>
   </nav>
 </template>
