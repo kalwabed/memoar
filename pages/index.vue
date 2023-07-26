@@ -3,15 +3,15 @@ useHead({
   title: 'Home',
 })
 
-const user = useSupabaseUser()
+const { user } = useAuthStore()
 </script>
 
 <template>
   <div class="flex flex-col">
-    <section class="bg-slate2 c-slate9 b-y b-slate3 py-15">
+    <section v-if="user" class="bg-slate2 c-slate9 b-y b-slate3 py1">
       <div class="container">
-        <h2 class="text-2xl md:text-4xl font-bold leading-relaxed">Welcome, {{ user?.email }}</h2>
-        <p>Here we go again</p>
+        <h2 class="text-sm font-bold leading-tight">Welcome, {{ user?.username }}</h2>
+        <small class="text-sm">Thanks for joining memoar!</small>
       </div>
     </section>
 
