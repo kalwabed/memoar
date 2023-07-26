@@ -40,7 +40,7 @@ await useAsyncData(`session-${userAuth?.user?.id}`, async () => {
     </ul>
 
     <div class="text-right">
-      <NuxtLink v-if="userAuth?.user" class="header_link" title="to profile page" :to="'/' + user?.username"
+      <NuxtLink v-if="user" class="header_link" title="to profile page" :to="'/' + user?.username"
         >@{{ user?.username }}</NuxtLink
       >
       <NuxtLink v-else class="header_link" title="to login page" to="/login">Login</NuxtLink>

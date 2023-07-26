@@ -68,7 +68,8 @@ const handleUpdateProfile = async () => {
 
 const logout = async () => {
   await client.auth.signOut()
-  await navigateTo('/login')
+  user.value = null
+  await navigateTo('/')
 }
 </script>
 
