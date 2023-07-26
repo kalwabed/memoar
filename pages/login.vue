@@ -43,6 +43,10 @@ const onLogin = async () => {
       <div class="mt-4">
         <span> Don't have an account? </span>
         <NuxtLink class="hover:underline c-blue7 focus:ring outline-none transition" to="/signup">Sign up</NuxtLink>
+        <p>
+          Get back to
+          <NuxtLink class="hover:underline c-blue7 focus:ring outline-none transition" to="/">Home</NuxtLink>
+        </p>
       </div>
     </form>
   </div>
