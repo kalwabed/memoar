@@ -11,6 +11,9 @@ dependencies:
   '@vueup/vue-quill':
     specifier: ^1.2.0
     version: 1.2.0(vue@3.3.4)
+  primevue:
+    specifier: ^3.31.0
+    version: 3.31.0(vue@3.3.4)
   uid:
     specifier: ^2.0.2
     version: 2.0.2
@@ -5869,6 +5872,14 @@ packages:
     resolution: {integrity: sha512-mQUvGU6aUFQ+rNvTIAcZuWGRT9a6f6Yrg9bHs4ImKF+HZCEK+plBvnAZYSIQztknZF2qnzNtr6F8s0+IuptdlQ==}
     engines: {node: ^14.13.1 || >=16.0.0}
     dev: true
+
+  /primevue@3.31.0(vue@3.3.4):
+    resolution: {integrity: sha512-4+NHYJ7enPDK/tcZAmVxWfSD3ciGK0NDtw68maFnBnWsXrWnQeiQfD6pOqyguesuIu4fOfO5JHZTGsqHuAL81A==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      vue: 3.3.4
+    dev: false
 
   /proc-log@3.0.0:
     resolution: {integrity: sha512-++Vn7NS4Xf9NacaU9Xq3URUuqZETPsf8L4j5/ckhaRYsfPeRyzGw+iDjFhV/Jr3uNmTvvddEJFWh5R1gRgUH8A==}

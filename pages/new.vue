@@ -39,22 +39,22 @@ const onSubmit = async () => {
 
 <template>
   <div class="container mt4">
-    <NuxtLink :to="userStore.username" class="text-sm font-medium c-gray5 hover:c-gray4 transition"
-      >&larr; Profile</NuxtLink
-    >
+    <NuxtLink :to="userStore?.username">
+      <Button icon="i-ph:arrow-left" size="small" label="My Profile" link />
+    </NuxtLink>
     <h1 class="text-4xl font-bold leading-relaxed mt4">Write a New Post</h1>
     <form @submit.prevent="onSubmit" class="mt-4 flex flex-col gap-4">
       <div class="form-group">
-        <label for="title">Title</label>
-        <input type="text" id="title" class="input w1/2" v-model="title" />
+        <label for="title" class="font-medium">Title</label>
+        <InputText type="text" id="title" class="w1/2" size="small" v-model="title" />
       </div>
       <div class="form-group">
         <label for="content">Content</label>
         <LazyEditor contentType="html" id="content" v-model:content="editorValue" />
       </div>
       <div class="mt-4 inline-flex gap-3">
-        <button class="btn-gray py-1 text-sm" type="reset">Cancel</button>
-        <button type="submit" class="btn-teal py-1 text-sm">Submit</button>
+        <Button label="Cancel" size="small" type="reset" severity="secondary" outlined />
+        <Button label="Submit" size="small" type="submit" />
       </div>
     </form>
   </div>
