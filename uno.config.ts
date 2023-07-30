@@ -44,6 +44,6 @@ export default defineConfig({
   ],
   shortcuts: [
     { container: 'max-w-screen-lg w-full h-full mx-auto px-4 lg:px0' },
-    { 'form-group': 'flex flex-col gap-1' },
+    { 'form-group': 'flex flex-col w-full gap-2' },
   ],
 })

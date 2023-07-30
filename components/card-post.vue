@@ -22,11 +22,11 @@ const publishedAt = computed(() => {
 </script>
 
 <template>
-  <div class="relative p4 flex mb-2 rd bg-blue1 c-blue-900 b b-blue3 shadow-sm hover:(b-blue4 shadow-md) transition">
+  <div class="relative p4 flex mb-2 rd bg-gray1 c-gray-900 b b-gray3 shadow-sm hover:shadow-md transition">
     <div class="flex flex-col">
       <NuxtLink
         :to="post.users.username"
-        class="font-medium text-sm c-blue7 hover:underline inline-flex items-center gap-2 mb-.5"
+        class="font-medium text-sm c-gray7 hover:underline inline-flex items-center gap-2 mb-.5"
       >
         <ProfilePicture :username="post.users.username" :width="20" :height="20" />
         <span>@{{ post.users.username }}</span>

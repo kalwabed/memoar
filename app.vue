@@ -11,4 +11,9 @@ body,
 #__nuxt {
   height: 100%;
 }
+
+button,
+input {
+  line-height: initial;
+}
 </style>

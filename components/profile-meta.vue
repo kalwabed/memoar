@@ -105,8 +105,8 @@ const logout = async () => {
         <input class="input" id="fullname" type="text" v-model="fullnameInput" />
       </div>
       <div class="flex gap2">
-        <button type="reset" class="btn-gray" @click="isEdit = false">Cancel</button>
-        <button type="submit" class="btn-blue">Save Changes</button>
+        <Button type="reset" label="Cancel" @click="isEdit = false" severity="secondary" size="small" />
+        <Button type="submit" label="Save Changes" size="small" />
       </div>
       <small class="c-gray">NB: Currently you can just update your username and fullname.</small>
     </form>
@@ -115,11 +115,8 @@ const logout = async () => {
       <span>@{{ user?.username }}</span>
     </div>
     <div v-if="isCurrentUser" class="flex ml-auto gap-3 h-fit">
-      <button class="btn-gray btn-sm" @click="onEdit">Edit</button>
-      <button @click="logout" class="btn-red btn-sm">
-        <span>Sign out</span>
-        <i class="i-ph-sign-out w4 h4" />
-      </button>
+      <Button size="small" severity="secondary" outlined @click="onEdit" label="Edit" />
+      <Button size="small" severity="danger" outlined @click="logout" icon="i-ph-sign-out" label="Sign out" />
     </div>
   </div>
 </template>

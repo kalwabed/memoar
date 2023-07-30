@@ -30,7 +30,9 @@ useHead({
 
       <div class="flex items-center justify-between">
         <h4 v-if="isCurrentUser" class="my-4 text-xl font-bold leading-relaxed">Your Posts</h4>
-        <NuxtLink v-if="isCurrentUser" to="/new" class="btn-blue btn-sm">Write New Post</NuxtLink>
+        <NuxtLink v-if="isCurrentUser" to="/new">
+          <Button label="New Post" size="small" />
+        </NuxtLink>
       </div>
       <Suspense>
         <Posts :enable-delete="isCurrentUser" :user-id="user?.id" />
