@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useToast } from 'primevue/usetoast'
+
 import { User } from '~/types/entities'
 import { Database } from '~/types/database'
 
@@ -8,9 +10,10 @@ const { user } = defineProps<{
 
 const usernameInput = ref('')
 const fullnameInput = ref('')
-const isEdit = ref(false)
 
+const [isEdit, toggleIsEdit] = useToggle(false)
 const { user: userStore } = useAuthStore()
+const toast = useToast()
 const client = useSupabaseClient<Database>()
 
 const isCurrentUser = computed(() => {
@@ -18,7 +21,7 @@ const isCurrentUser = computed(() => {
 })
 
 const onEdit = () => {
-  isEdit.value = !isEdit.value
+  toggleIsEdit()
   usernameInput.value = userStore.value?.username
   fullnameInput.value = userStore.value?.fullname
 }
@@ -30,8 +33,11 @@ const handleUpdateProfile = async () => {
 
   // test if username is valid
   if (!usernameRegex.test(username)) {
-    return useNuxtApp().$toast.error('Username can only contain alphanumeric and underscore!', {
-      autoClose: 3000,
+    return toast.add({
+      severity: 'warn',
+      summary: 'Invalid',
+      detail: 'Username can only contain alphanumeric and underscore!',
+      life: 3000,
     })
   }
 
@@ -39,7 +45,12 @@ const handleUpdateProfile = async () => {
     const savedUser = await client.from('users').select('username').eq('username', username).single()
 
     if (savedUser?.data.username !== userStore.value?.username) {
-      return useNuxtApp().$toast.error('Username is already taken!')
+      return toast.add({
+        severity: 'error',
+        summary: 'Invalid',
+        detail: 'Username is already taken!',
+        life: 3000,
+      })
     }
   } catch (error) {
     console.error(error)
@@ -54,8 +65,7 @@ const handleUpdateProfile = async () => {
       })
       .eq('id', userStore.value?.id)
 
-    isEdit.value = false
-    useNuxtApp().$toast.success('Profile updated!')
+    toggleIsEdit()
 
     userStore.value = {
       ...userStore.value,
@@ -66,10 +76,26 @@ const handleUpdateProfile = async () => {
         ...userStore.value,
         username,
       }
-      return await navigateTo(`/${usernameInput.value}`, { replace: true })
-    }
 
-    await refreshNuxtData()
+      toast.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Profile updated. Redirecting...',
+        life: 2000,
+      })
+      setTimeout(() => {
+        return navigateTo(`/${usernameInput.value}`, { replace: true })
+      }, 2200)
+    } else {
+      toast.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Profile updated!',
+        life: 3000,
+      })
+
+      await refreshNuxtData()
+    }
   } catch (error) {
     console.error(error)
   }
@@ -94,23 +120,8 @@ const logout = async () => {
         :height="70"
       />
     </div>
-    <form v-if="isEdit" @submit.prevent="handleUpdateProfile" class="flex flex-col gap-4">
-      <div role="group">
-        <label for="username">Username</label>
-        <input class="input mb1" id="username" type="text" v-model="usernameInput" />
-        <span class="text-xs c-gray5">Minimal 3 huruf, maksimal 15 huruf.</span>
-      </div>
-      <div role="group">
-        <label for="fullname">Fullname</label>
-        <input class="input" id="fullname" type="text" v-model="fullnameInput" />
-      </div>
-      <div class="flex gap2">
-        <Button type="reset" label="Cancel" @click="isEdit = false" severity="secondary" size="small" />
-        <Button type="submit" label="Save Changes" size="small" />
-      </div>
-      <small class="c-gray">NB: Currently you can just update your username and fullname.</small>
-    </form>
-    <div v-else class="flex flex-col">
+
+    <div class="flex flex-col">
       <h3 class="text-2xl font-bold leading-relaxed">{{ user?.fullname }}</h3>
       <span>@{{ user?.username }}</span>
     </div>
@@ -118,5 +129,26 @@ const logout = async () => {
       <Button size="small" severity="secondary" outlined @click="onEdit" label="Edit" />
       <Button size="small" severity="danger" outlined @click="logout" icon="i-ph-sign-out" label="Sign out" />
     </div>
+
+    <Dialog v-model:visible="isEdit" modal header="Update your profile">
+      <form @submit.prevent="handleUpdateProfile" class="flex flex-col">
+        <div role="group" class="form-group">
+          <label for="username">Username</label>
+          <InputText id="username" v-model="usernameInput" />
+          <span class="text-xs c-gray5">Minimal 3 huruf, maksimal 15 huruf.</span>
+        </div>
+        <div role="group" class="form-group mt4">
+          <label for="fullname">Fullname</label>
+          <InputText id="fullname" v-model="fullnameInput" />
+        </div>
+        <div class="flex justify-between gap2 mt8">
+          <Button type="reset" label="Cancel" @click="toggleIsEdit()" severity="secondary" size="small" />
+          <Button type="submit" label="Save Changes" size="small" />
+        </div>
+      </form>
+      <template #footer>
+        <small class="c-gray">NB: Currently you can just update your username and fullname.</small>
+      </template>
+    </Dialog>
   </div>
 </template>

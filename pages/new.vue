@@ -53,7 +53,7 @@ const onSubmit = async () => {
         <LazyEditor contentType="html" id="content" v-model:content="editorValue" />
       </div>
       <div class="mt-4 inline-flex gap-3">
-        <Button label="Cancel" size="small" type="reset" severity="secondary" outlined />
+        <Button label="Cancel" size="small" type="reset" severity="secondary" outlined @click="$router.back()" />
         <Button label="Submit" size="small" type="submit" />
       </div>
     </form>

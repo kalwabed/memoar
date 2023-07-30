@@ -17,9 +17,6 @@ dependencies:
   uid:
     specifier: ^2.0.2
     version: 2.0.2
-  vue3-toastify:
-    specifier: ^0.1.11
-    version: 0.1.11(vue@3.3.4)
 
 devDependencies:
   '@nuxt/devtools':
@@ -7266,18 +7263,6 @@ packages:
       '@vue/devtools-api': 6.5.0
       vue: 3.3.4
     dev: true
-
-  /vue3-toastify@0.1.11(vue@3.3.4):
-    resolution: {integrity: sha512-xOghHidGEuzLaDp9yiCdEt53c02x16m3ai/G3vq9d7XST77YAaPk1p1D0DiTbbpYUvGQGC1SYA7e3Z9+IP3r6w==}
-    engines: {node: '>=16', npm: '>=7'}
-    peerDependencies:
-      vue: '>=3.2.0'
-    peerDependenciesMeta:
-      vue:
-        optional: true
-    dependencies:
-      vue: 3.3.4
-    dev: false
 
   /vue@3.3.4:
     resolution: {integrity: sha512-VTyEYn3yvIeY1Py0WaYGZsXnz3y5UnGi62GjVEqvEGPl6nxbOrCXbVOTQWBEJUqAyTUk2uJ5JLVnYJ6ZzGbrSw==}

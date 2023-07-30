@@ -1,6 +1,10 @@
 <template>
   <NuxtLayout>
     <NuxtLoadingIndicator />
+    <ClientOnly>
+      <ConfirmDialog />
+      <Toast position="top-center" />
+    </ClientOnly>
     <NuxtPage />
   </NuxtLayout>
 </template>

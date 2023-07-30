@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useConfirm } from 'primevue/useconfirm'
+
 import type { Post } from '~/types/entities'
 
 const { post } = defineProps<{
@@ -10,15 +12,28 @@ const { post } = defineProps<{
   enableDelete?: boolean
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
   (e: 'deleteArticle', postId: string): void
 }>()
+
+const confirm = useConfirm()
 
 const publishedAt = computed(() => {
   const dateUpload = new Date(post.created_at)
 
   return useDateFormat(dateUpload, 'DD MMM, HH:mm', { locales: 'id' }).value
 })
+
+const handleDelete = () => {
+  confirm.require({
+    header: 'Confirmation',
+    icon: 'i-ph:trash',
+    message: 'Are you sure you want to delete this article?',
+    accept: () => {
+      emit('deleteArticle', post.id)
+    },
+  })
+}
 </script>
 
 <template>
@@ -41,14 +56,14 @@ const publishedAt = computed(() => {
         >{{ publishedAt }}</time
       >
     </div>
-    <button
+    <Button
       v-if="enableDelete"
-      popover-top="Delete article"
-      @click.stop.prevent="$emit('deleteArticle', post.id)"
-      class="card-link btn-small btn-danger"
-    >
-      🔥
-    </button>
+      @click.stop.prevent="handleDelete"
+      text
+      size="small"
+      icon="i-ph:trash"
+      severity="danger"
+    />
   </div>
 </template>
 
