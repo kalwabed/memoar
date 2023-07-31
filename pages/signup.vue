@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Database } from '@/types/database'
+import { useToast } from 'primevue/usetoast'
 
 useHead({
   title: 'Sign Up',
@@ -11,6 +12,7 @@ definePageMeta({
 
 const authClient = useSupabaseAuthClient()
 const dbClient = useSupabaseClient<Database>()
+const toast = useToast()
 
 const signUpForm = reactive({
   fullname: '',
@@ -20,10 +22,25 @@ const signUpForm = reactive({
 })
 
 const onSignUp = async () => {
+  if (signUpForm.password !== signUpForm.repeatPassword) {
+    toast.add({
+      severity: 'error',
+      summary: 'Sign Up failed',
+      detail: 'Passwords do not match',
+      life: 3000,
+    })
+    return
+  }
+
   const { error, data: authData } = await authClient.auth.signUp(signUpForm)
 
   if (error) {
-    alert(error.message)
+    toast.add({
+      severity: 'error',
+      summary: 'Sign Up failed',
+      detail: error.message,
+      life: 3000,
+    })
     return
   }
 
@@ -33,8 +50,14 @@ const onSignUp = async () => {
     .from(USERS_TABLE)
     .insert({ username, fullname: signUpForm.fullname, id: authData.user?.id })
     .select('fullname')
+    .single()
 
-  alert(`Welcome ${data?.length && data[0].fullname}!`)
+  toast.add({
+    severity: 'success',
+    summary: 'Sign Up success',
+    detail: `Welcome to the club, ${data.fullname}!`,
+    life: 3000,
+  })
   await navigateTo('/')
 }
 </script>

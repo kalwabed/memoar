@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useToast } from 'primevue/usetoast'
 import { Database } from '~/types/database'
 
 useHead({
@@ -10,6 +11,7 @@ const title = ref('')
 
 const client = useSupabaseClient<Database>()
 const { user: userStore } = useAuthStore()
+const toast = useToast()
 
 const onSubmit = async () => {
   try {
@@ -29,6 +31,15 @@ const onSubmit = async () => {
 
     editorValue.value = ''
     title.value = ''
+
+    toast.add({
+      severity: 'success',
+      summary: 'Post created',
+      detail: 'Your post has been created successfully',
+      life: 3000,
+    })
+
+    await navigateTo(userStore.value.username)
   } catch (error) {
     console.error(error)
   } finally {

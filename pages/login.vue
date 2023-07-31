@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useToast } from 'primevue/usetoast'
+
 useHead({
   title: 'Login',
 })
@@ -8,6 +10,7 @@ definePageMeta({
 })
 
 const authClient = useSupabaseAuthClient()
+const toast = useToast()
 
 const loginForm = reactive({
   email: '',
@@ -18,7 +21,12 @@ const onLogin = async () => {
   const { error } = await authClient.auth.signInWithPassword(loginForm)
 
   if (error) {
-    alert(error.message)
+    toast.add({
+      severity: 'error',
+      summary: 'Login failed',
+      detail: error.message,
+      life: 3000,
+    })
     return
   }
 
