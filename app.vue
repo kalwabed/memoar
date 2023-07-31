@@ -1,6 +1,10 @@
 <template>
   <NuxtLayout>
     <NuxtLoadingIndicator />
+    <ClientOnly>
+      <ConfirmDialog />
+      <Toast position="top-center" />
+    </ClientOnly>
     <NuxtPage />
   </NuxtLayout>
 </template>
@@ -10,5 +14,10 @@ html,
 body,
 #__nuxt {
   height: 100%;
+}
+
+button,
+input {
+  line-height: initial;
 }
 </style>
