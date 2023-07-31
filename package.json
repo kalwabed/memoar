@@ -10,13 +10,13 @@
     "fmt": "prettier -w --cache '**/*{.ts,.vue}'"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^0.7.0",
+    "@nuxt/devtools": "^0.7.2",
     "@nuxtjs/supabase": "^0.3.7",
     "@types/node": "^18.16.19",
-    "@unocss/nuxt": "^0.53.5",
-    "@unocss/reset": "^0.54.0",
-    "@vueuse/core": "^10.2.0",
-    "@vueuse/nuxt": "^10.2.0",
+    "@unocss/nuxt": "^0.54.1",
+    "@unocss/reset": "^0.54.1",
+    "@vueuse/core": "^10.3.0",
+    "@vueuse/nuxt": "^10.3.0",
     "nuxt": "^3.6.5"
   },
   "dependencies": {
