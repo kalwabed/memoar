@@ -86,15 +86,18 @@ onMounted(() => {
 
 <template>
   <div class="container max-w-2xl mt-4 flex flex-col">
-    <button
+    <Button
       v-if="post?.ableToUpdate"
-      class="ml-auto px-1 text-sm c-gray-6 hover:c-blue inline-flex gap-1"
+      text
+      severity="secondary"
+      class="ml-auto"
+      size="small"
+      icon="i-ph:pencil"
       title="Edit this article"
+      label="Edit"
       @click="toggleEdit()"
-    >
-      <i class="i-ph:pencil w-4 h-4"></i>
-      Edit
-    </button>
+    />
+
     <template v-if="isEdit">
       <UpdatePost
         :isLoading="isLoading"
