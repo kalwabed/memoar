@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   css: ['@unocss/reset/tailwind-compat.css', 'primevue/resources/themes/lara-light-teal/theme.css'],
-  modules: ['@vueuse/nuxt', '@nuxtjs/supabase', '@unocss/nuxt','nuxt-vitest'],
+  modules: ['@vueuse/nuxt', '@nuxtjs/supabase', '@unocss/nuxt', 'nuxt-vitest'],
   build: {
     transpile: ['primevue'],
   },

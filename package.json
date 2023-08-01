@@ -28,5 +28,10 @@
     "@vueup/vue-quill": "^1.2.0",
     "primevue": "^3.31.0",
     "uid": "^2.0.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "@supabase/supabase-js": "2.31.0"
+    }
   }
 }
