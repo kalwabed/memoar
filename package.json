@@ -7,6 +7,7 @@
     "generate": "nuxt generate",
     "postinstall": "nuxt prepare",
     "preview": "nuxt preview",
+    "test": "vitest",
     "fmt": "prettier -w --cache '**/*{.ts,.vue}'"
   },
   "devDependencies": {
@@ -17,12 +18,20 @@
     "@unocss/reset": "^0.54.1",
     "@vueuse/core": "^10.3.0",
     "@vueuse/nuxt": "^10.3.0",
-    "nuxt": "^3.6.5"
+    "happy-dom": "^10.5.2",
+    "nuxt": "^3.6.5",
+    "nuxt-vitest": "^0.10.2",
+    "vitest": "^0.33.0"
   },
   "dependencies": {
     "@sindresorhus/slugify": "^2.2.1",
     "@vueup/vue-quill": "^1.2.0",
     "primevue": "^3.31.0",
     "uid": "^2.0.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "@supabase/supabase-js": "2.31.0"
+    }
   }
 }
