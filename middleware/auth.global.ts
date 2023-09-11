@@ -1,7 +1,6 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  const { auth } = useSupabaseClient()
-  const { data } = await auth.getUser()
-  const isUserAuthenticated = Boolean(data.user)
+  const user = useSupabaseUser()
+  const isUserAuthenticated = Boolean(user.value)
 
   // prevent user from accessing the page if not authenticated
   const privateRoutes = ['/new']
