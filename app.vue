@@ -12,7 +12,8 @@
 <style>
 html,
 body,
-#__nuxt {
+#__nuxt,
+#nuxt-test {
   height: 100%;
 }
 

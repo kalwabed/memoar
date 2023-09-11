@@ -4,9 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@supabase/supabase-js': 2.31.0
-
 dependencies:
   '@sindresorhus/slugify':
     specifier: ^2.2.1
@@ -1301,7 +1298,7 @@ packages:
     resolution: {integrity: sha512-LW+cSpvnVEzKbrBp3EXN9300LdbGclO9lo+IWTBdLVEhEnY1JIoGDAB4YTJY818jkZ7gFMkMshQE7irYdtcT8A==}
     dependencies:
       '@nuxt/kit': 3.7.1
-      '@supabase/supabase-js': 2.31.0
+      '@supabase/supabase-js': 2.33.1
       defu: 6.1.2
       pathe: 1.1.1
     transitivePeerDependencies:
@@ -1715,8 +1712,8 @@ packages:
       '@supabase/node-fetch': 2.6.14
     dev: true
 
-  /@supabase/supabase-js@2.31.0:
-    resolution: {integrity: sha512-W9/4s+KnSUX67wJKBn/3yLq+ieycnMzVjK3nNTLX5Wko3ypNT/081l2iFYrf+nsLQ1CiT4mA92I3dxCy6CmxTg==}
+  /@supabase/supabase-js@2.33.1:
+    resolution: {integrity: sha512-jA00rquPTppPOHpBB6KABW98lfg0gYXcuGqP3TB1iiduznRVsi3GGk2qBKXPDLMYSe0kRlQp5xCwWWthaJr8eA==}
     dependencies:
       '@supabase/functions-js': 2.1.5
       '@supabase/gotrue-js': 2.51.0

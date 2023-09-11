@@ -1,14 +1,9 @@
 {
-  "name": "memoar",
-  "private": true,
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "postinstall": "nuxt prepare",
-    "preview": "nuxt preview",
-    "test": "vitest",
-    "fmt": "prettier -w --cache '**/*{.ts,.vue}'"
+  "dependencies": {
+    "@sindresorhus/slugify": "^2.2.1",
+    "@vueup/vue-quill": "^1.2.0",
+    "primevue": "^3.31.0",
+    "uid": "^2.0.2"
   },
   "devDependencies": {
     "@nuxt/devtools": "^0.8.3",
@@ -23,15 +18,15 @@
     "nuxt-vitest": "^0.10.2",
     "vitest": "^0.34.4"
   },
-  "dependencies": {
-    "@sindresorhus/slugify": "^2.2.1",
-    "@vueup/vue-quill": "^1.2.0",
-    "primevue": "^3.31.0",
-    "uid": "^2.0.2"
-  },
-  "pnpm": {
-    "overrides": {
-      "@supabase/supabase-js": "2.31.0"
-    }
+  "name": "memoar",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "fmt": "prettier -w --cache '**/*{.ts,.vue}'",
+    "generate": "nuxt generate",
+    "postinstall": "nuxt prepare",
+    "preview": "nuxt preview",
+    "test": "vitest"
   }
 }
