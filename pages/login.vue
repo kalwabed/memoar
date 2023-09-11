@@ -9,7 +9,7 @@ definePageMeta({
   layout: 'auth',
 })
 
-const authClient = useSupabaseAuthClient()
+const { auth } = useSupabaseClient()
 const toast = useToast()
 
 const loginForm = reactive({
@@ -18,7 +18,7 @@ const loginForm = reactive({
 })
 
 const onLogin = async () => {
-  const { error } = await authClient.auth.signInWithPassword(loginForm)
+  const { error } = await auth.signInWithPassword(loginForm)
 
   if (error) {
     toast.add({

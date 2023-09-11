@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  const { auth } = useSupabaseAuthClient()
+  const { auth } = useSupabaseClient()
   const { data } = await auth.getUser()
   const isUserAuthenticated = Boolean(data.user)
 

@@ -10,7 +10,6 @@ definePageMeta({
   layout: 'auth',
 })
 
-const authClient = useSupabaseAuthClient()
 const dbClient = useSupabaseClient<Database>()
 const toast = useToast()
 
@@ -32,7 +31,7 @@ const onSignUp = async () => {
     return
   }
 
-  const { error, data: authData } = await authClient.auth.signUp(signUpForm)
+  const { error, data: authData } = await dbClient.auth.signUp(signUpForm)
 
   if (error) {
     toast.add({

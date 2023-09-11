@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { Database } from 'types/database'
+import { Database } from '~/types/database'
 import Logo from '~/assets/logo.jpg'
 
-const authClient = useSupabaseAuthClient()
 const client = useSupabaseClient<Database>()
 const { user } = useAuthStore()
 
-const { data: userAuth } = await authClient.auth.getUser()
+const { data: userAuth } = await client.auth.getUser()
 
 await useAsyncData(`session-${userAuth?.user?.id}`, async () => {
   if (userAuth?.user) {

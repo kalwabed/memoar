@@ -11,17 +11,17 @@
     "fmt": "prettier -w --cache '**/*{.ts,.vue}'"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^0.7.2",
-    "@nuxtjs/supabase": "^0.3.7",
+    "@nuxt/devtools": "^0.8.3",
+    "@nuxtjs/supabase": "^1.1.0",
     "@types/node": "^18.16.19",
-    "@unocss/nuxt": "^0.54.1",
-    "@unocss/reset": "^0.54.1",
+    "@unocss/nuxt": "^0.55.7",
+    "@unocss/reset": "^0.55.7",
     "@vueuse/core": "^10.3.0",
     "@vueuse/nuxt": "^10.3.0",
-    "happy-dom": "^10.5.2",
-    "nuxt": "^3.6.5",
+    "happy-dom": "^11.0.2",
+    "nuxt": "^3.7.1",
     "nuxt-vitest": "^0.10.2",
-    "vitest": "^0.33.0"
+    "vitest": "^0.34.4"
   },
   "dependencies": {
     "@sindresorhus/slugify": "^2.2.1",

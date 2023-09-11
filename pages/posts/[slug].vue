@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { useDateFormat } from '@vueuse/core'
-import { Database } from 'types/database'
-import { Post } from 'types/entities'
+import { Database } from '~/types/database'
+import { Post } from '~/types/entities'
 
 import UpdatePost from '~/components/update-post.vue'
 
 const client = useSupabaseClient<Database>()
-const authClient = useSupabaseAuthClient()
 const route = useRoute()
 // @ts-ignore
 const slug: string = route.params.slug
@@ -14,7 +13,7 @@ const slug: string = route.params.slug
 const [isEdit, toggleEdit] = useToggle(false)
 const [isLoading, toggleLoading] = useToggle(false)
 const { data: post } = await useAsyncData(slug, async () => {
-  const getUserAuth = authClient.auth.getUser()
+  const getUserAuth = client.auth.getUser()
   const getPost = client.from(POSTS_TABLE).select('*, users ( id, username ,avatar_url )').eq('slug', slug).single()
 
   const [{ data }, { data: authData }] = await Promise.all([getPost, getUserAuth])
