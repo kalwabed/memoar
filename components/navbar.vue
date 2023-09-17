@@ -9,7 +9,11 @@ const { data: userAuth } = await client.auth.getUser()
 
 await useAsyncData(`session-${userAuth?.user?.id}`, async () => {
   if (userAuth?.user) {
-    const { data, error } = await client.from(USERS_TABLE).select('*').eq('id', userAuth?.user?.id).single()
+    const { data, error } = await client
+      .from(USERS_TABLE)
+      .select('*')
+      .eq('id', userAuth?.user?.id)
+      .single()
 
     if (error) throw new Error(error.message)
 

@@ -10,6 +10,9 @@ const { user } = defineProps<{
 
 const usernameInput = ref('')
 const fullnameInput = ref('')
+const twitterInput = ref('')
+const instagramInput = ref('')
+const webInput = ref('')
 
 const [isEdit, toggleIsEdit] = useToggle(false)
 const { user: userStore } = useAuthStore()
@@ -24,6 +27,9 @@ const onEdit = () => {
   toggleIsEdit()
   usernameInput.value = userStore.value?.username
   fullnameInput.value = userStore.value?.fullname
+  instagramInput.value = user?.instagram
+  twitterInput.value = user?.twitter
+  webInput.value = user?.website
 }
 
 const handleUpdateProfile = async () => {
@@ -62,6 +68,9 @@ const handleUpdateProfile = async () => {
       .update({
         username,
         fullname: fullnameInput.value,
+        instagram: instagramInput.value,
+        twitter: twitterInput.value,
+        website: webInput.value,
       })
       .eq('id', userStore.value?.id)
 
@@ -124,6 +133,36 @@ const logout = async () => {
     <div class="flex flex-col">
       <h3 class="text-2xl font-bold leading-relaxed">{{ user?.fullname }}</h3>
       <span>@{{ user?.username }}</span>
+      <p>Apabila</p>
+      <div class="flex gap3 items-center mt4">
+        <a
+          v-if="user.instagram"
+          class="outline-none hover:c-blue6 focus:(ring-2 c-blue6) transition"
+          title="Instagram"
+          :href="`https://www.instagram.com/${user.instagram}`"
+          rel="noreferrer noopener"
+          target="_blank"
+          ><i class="i-radix-icons:instagram-logo block"></i
+        ></a>
+        <a
+          v-if="user.twitter"
+          class="outline-none hover:c-blue6 focus:(ring-2 c-blue6) transition"
+          title="X Twitter"
+          :href="`https://twitter.com/${user.twitter}`"
+          rel="noreferrer noopener"
+          target="_blank"
+          ><i class="i-radix-icons:twitter-logo block"></i
+        ></a>
+        <a
+          v-if="user.website"
+          class="outline-none hover:c-blue6 focus:(ring-2 c-blue6) transition"
+          title="Website"
+          :href="user.website"
+          rel="noreferrer noopener"
+          target="_blank"
+          ><i class="i-radix-icons:globe block"></i
+        ></a>
+      </div>
     </div>
     <div v-if="isCurrentUser" class="flex ml-auto gap-3 h-fit">
       <Button size="small" severity="secondary" outlined @click="onEdit" label="Edit" />
@@ -140,6 +179,18 @@ const logout = async () => {
         <div role="group" class="form-group mt4">
           <label for="fullname">Fullname</label>
           <InputText id="fullname" v-model="fullnameInput" />
+        </div>
+        <div role="group" class="form-group mt4">
+          <label for="instagram">Instagram</label>
+          <InputText id="instagram" placeholder="Username" v-model="instagramInput" />
+        </div>
+        <div role="group" class="form-group mt4">
+          <label for="twitter">Twitter</label>
+          <InputText id="twitter" placeholder="Handle" v-model="twitterInput" />
+        </div>
+        <div role="group" class="form-group mt4">
+          <label for="web">Website</label>
+          <InputText id="web" placeholder="https://..." type="url" v-model="webInput" />
         </div>
         <div class="flex justify-between gap2 mt8">
           <Button type="reset" label="Cancel" @click="toggleIsEdit()" severity="secondary" size="small" />
