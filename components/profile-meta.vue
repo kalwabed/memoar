@@ -13,6 +13,7 @@ const fullnameInput = ref('')
 const twitterInput = ref('')
 const instagramInput = ref('')
 const webInput = ref('')
+const bioInput = ref('')
 
 const [isEdit, toggleIsEdit] = useToggle(false)
 const { user: userStore } = useAuthStore()
@@ -30,6 +31,7 @@ const onEdit = () => {
   instagramInput.value = user?.instagram
   twitterInput.value = user?.twitter
   webInput.value = user?.website
+  bioInput.value = user?.bio
 }
 
 const handleUpdateProfile = async () => {
@@ -71,6 +73,7 @@ const handleUpdateProfile = async () => {
         instagram: instagramInput.value,
         twitter: twitterInput.value,
         website: webInput.value,
+        bio: bioInput.value,
       })
       .eq('id', userStore.value?.id)
 
@@ -133,7 +136,7 @@ const logout = async () => {
     <div class="flex flex-col">
       <h3 class="text-2xl font-bold leading-relaxed">{{ user?.fullname }}</h3>
       <span>@{{ user?.username }}</span>
-      <p>Apabila</p>
+      <p v-if="user?.bio">{{user?.bio}}</p>
       <div class="flex gap3 items-center mt4">
         <a
           v-if="user.instagram"
@@ -169,7 +172,7 @@ const logout = async () => {
       <Button size="small" severity="danger" outlined @click="logout" icon="i-ph-sign-out" label="Sign out" />
     </div>
 
-    <Dialog v-model:visible="isEdit" modal header="Update your profile">
+    <Dialog v-model:visible="isEdit" modal header="Update your profile" class="w-600px">
       <form @submit.prevent="handleUpdateProfile" class="flex flex-col">
         <div role="group" class="form-group">
           <label for="username">Username</label>
@@ -179,6 +182,10 @@ const logout = async () => {
         <div role="group" class="form-group mt4">
           <label for="fullname">Fullname</label>
           <InputText id="fullname" v-model="fullnameInput" />
+        </div>
+        <div role="group" class="form-group mt4">
+          <label for="bio">Bio</label>
+          <Textarea id="bio" v-model="bioInput" />
         </div>
         <div role="group" class="form-group mt4">
           <label for="instagram">Instagram</label>
@@ -197,9 +204,6 @@ const logout = async () => {
           <Button type="submit" label="Save Changes" size="small" />
         </div>
       </form>
-      <template #footer>
-        <small class="c-gray">NB: Currently you can just update your username and fullname.</small>
-      </template>
     </Dialog>
   </div>
 </template>

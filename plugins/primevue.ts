@@ -9,6 +9,7 @@ import ToastService from 'primevue/toastservice'
 import Toast from 'primevue/toast'
 import ConfirmDialog from 'primevue/confirmdialog'
 import ConfirmationService from 'primevue/confirmationservice'
+import Textarea from 'primevue/textarea'
 
 export default defineNuxtPlugin(nuxtApp => {
   nuxtApp.vueApp.use(PrimeVue, { ripple: true })
@@ -21,5 +22,6 @@ export default defineNuxtPlugin(nuxtApp => {
   nuxtApp.vueApp.component('Dialog', Dialog)
   nuxtApp.vueApp.component('Toast', Toast)
   nuxtApp.vueApp.component('ConfirmDialog', ConfirmDialog)
+  nuxtApp.vueApp.component('Textarea', Textarea)
   //other components that you need
 })

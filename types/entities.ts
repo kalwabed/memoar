@@ -14,6 +14,7 @@ export interface User {
   fullname: string
   instagram: string
   twitter: string
+  bio: string
   website: string
   avatar_url: string
   created_at: string
