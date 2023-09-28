@@ -65,7 +65,7 @@ const onSubmit = async () => {
       </div>
       <div class="mt-4 inline-flex gap-3">
         <Button label="Cancel" size="small" type="reset" severity="secondary" outlined @click="$router.back()" />
-        <Button label="Submit" size="small" type="submit" />
+        <Button label="Send" size="small" type="submit" />
       </div>
     </form>
   </div>

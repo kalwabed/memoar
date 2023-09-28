@@ -122,49 +122,24 @@ const logout = async () => {
 
 <template>
   <div class="flex gap-4 pb-4 mb-3 border-b">
-    <div>
-      <ProfilePicture
-        :src="user?.avatar_url"
-        :username="user?.username"
-        alt="profile"
-        title="Your generated profile picture"
-        :width="70"
-        :height="70"
-      />
+    <div class="inline-flex justify-center items-start">
+      <ProfilePicture :src="user?.avatar_url" :username="user?.username" alt="profile"
+        title="Your generated profile picture" :width="70" :height="70" />
     </div>
 
-    <div class="flex flex-col">
+    <div class="flex flex-col w-70%">
       <h3 class="text-2xl font-bold leading-relaxed">{{ user?.fullname }}</h3>
       <span>@{{ user?.username }}</span>
-      <p v-if="user?.bio">{{user?.bio}}</p>
+      <p v-if="user?.bio">{{ user?.bio }}</p>
       <div class="flex gap3 items-center mt4">
-        <a
-          v-if="user.instagram"
-          class="outline-none hover:c-blue6 focus:(ring-2 c-blue6) transition"
-          title="Instagram"
-          :href="`https://www.instagram.com/${user.instagram}`"
-          rel="noreferrer noopener"
-          target="_blank"
-          ><i class="i-radix-icons:instagram-logo block"></i
-        ></a>
-        <a
-          v-if="user.twitter"
-          class="outline-none hover:c-blue6 focus:(ring-2 c-blue6) transition"
-          title="X Twitter"
-          :href="`https://twitter.com/${user.twitter}`"
-          rel="noreferrer noopener"
-          target="_blank"
-          ><i class="i-radix-icons:twitter-logo block"></i
-        ></a>
-        <a
-          v-if="user.website"
-          class="outline-none hover:c-blue6 focus:(ring-2 c-blue6) transition"
-          title="Website"
-          :href="user.website"
-          rel="noreferrer noopener"
-          target="_blank"
-          ><i class="i-radix-icons:globe block"></i
-        ></a>
+        <a v-if="user.instagram" class="outline-none hover:c-blue6 focus:(ring-2 c-blue6) transition" title="Instagram"
+          :href="`https://www.instagram.com/${user.instagram}`" rel="noreferrer noopener" target="_blank"><i
+            class="i-radix-icons:instagram-logo block"></i></a>
+        <a v-if="user.twitter" class="outline-none hover:c-blue6 focus:(ring-2 c-blue6) transition" title="X Twitter"
+          :href="`https://twitter.com/${user.twitter}`" rel="noreferrer noopener" target="_blank"><i
+            class="i-radix-icons:twitter-logo block"></i></a>
+        <a v-if="user.website" class="outline-none hover:c-blue6 focus:(ring-2 c-blue6) transition" title="Website"
+          :href="user.website" rel="noreferrer noopener" target="_blank"><i class="i-radix-icons:globe block"></i></a>
       </div>
     </div>
     <div v-if="isCurrentUser" class="flex ml-auto gap-3 h-fit">
