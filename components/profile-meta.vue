@@ -123,13 +123,13 @@ const logout = async () => {
 <template>
   <div class="flex gap-4 pb-4 mb-3 border-b">
     <div class="inline-flex justify-center items-start">
-      <ProfilePicture :src="user?.avatar_url" :username="user?.username" alt="profile"
-        title="Your generated profile picture" :width="70" :height="70" />
+      <ProfilePicture :src="user?.avatar_url" :username="user?.username" alt="profile" title="Generated profile picture"
+        :width="70" :height="70" />
     </div>
 
     <div class="flex flex-col w-70%">
       <h3 class="text-2xl font-bold leading-relaxed">{{ user?.fullname }}</h3>
-      <span>@{{ user?.username }}</span>
+      <span class="c-gray5 mb2">@{{ user?.username }}</span>
       <p v-if="user?.bio">{{ user?.bio }}</p>
       <div class="flex gap3 items-center mt4">
         <a v-if="user.instagram" class="outline-none hover:c-blue6 focus:(ring-2 c-blue6) transition" title="Instagram"
@@ -160,7 +160,7 @@ const logout = async () => {
         </div>
         <div role="group" class="form-group mt4">
           <label for="bio">Bio</label>
-          <Textarea id="bio" v-model="bioInput" />
+          <Textarea id="bio" v-model="bioInput" :maxlength="200" auto-resize rows="3" cols="30" />
         </div>
         <div role="group" class="form-group mt4">
           <label for="instagram">Instagram</label>
