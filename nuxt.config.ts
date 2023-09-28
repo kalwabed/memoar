@@ -26,6 +26,9 @@ export default defineNuxtConfig({
       supabaseKey: '',
     },
   },
+  supabase: {
+    redirect: false,
+  },
   vue: {
     propsDestructure: true,
     defineModel: true,

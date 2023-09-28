@@ -14,7 +14,7 @@ const {
 const profilePicture = computed(() => {
   if (src) return src
 
-  return `https://api.dicebear.com/6.x/notionists-neutral/svg?seed=${username}`
+  return `https://api.dicebear.com/7.x/notionists-neutral/svg?seed=${username}`
 })
 </script>
 
