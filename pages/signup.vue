@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { Database } from '@/types/database'
 import { useToast } from 'primevue/usetoast'
+
+import { Database } from '@/types/database'
+import { email, getOutput, getPipeIssues, minLength, string } from 'valibot';
 
 useHead({
   title: 'Sign Up',
@@ -13,25 +15,27 @@ definePageMeta({
 const dbClient = useSupabaseClient<Database>()
 const toast = useToast()
 
-const signUpForm = reactive({
-  fullname: '',
-  email: '',
-  password: '',
-  repeatPassword: '',
-})
+const emailSchema = toTypedSchema(string([email("Must be a valid email"), minLength(1, "Email is required")]))
+const passwordSchema = toTypedSchema(string([minLength(1, "Password is required")]))
+const fullnameSchema = toTypedSchema(string([minLength(1, "Fullname is required")]))
 
-const onSignUp = async () => {
-  if (signUpForm.password !== signUpForm.repeatPassword) {
-    toast.add({
-      severity: 'error',
-      summary: 'Sign Up failed',
-      detail: 'Passwords do not match',
-      life: 3000,
-    })
-    return
+const { value: emailValue, errorMessage: errorEmail } = useField('email', emailSchema)
+const { value: fullnameValue, errorMessage: errorFullname } = useField('fullname', fullnameSchema)
+const { value: passwordValue, errorMessage: errorPassword } = useField('password', passwordSchema)
+
+const repeatPasswordSchema = toTypedSchema(string([(input) => {
+  if (input !== passwordValue.value) {
+    return getPipeIssues("custom", "Repeat password must be same", input)
   }
 
-  const { error, data: authData } = await dbClient.auth.signUp(signUpForm)
+  return getOutput(input)
+}, minLength(1, "Password is required")]))
+
+const { value: repeatPasswordValue, errorMessage: errorRepeatPassword } = useField('repeatPassword', repeatPasswordSchema)
+const { handleSubmit } = useForm()
+
+const onSignUp = handleSubmit(async (values) => {
+  const { error, data: authData } = await dbClient.auth.signUp({ email: emailValue.value, password: passwordValue.value })
 
   if (error) {
     toast.add({
@@ -43,11 +47,11 @@ const onSignUp = async () => {
     return
   }
 
-  const username = uniqueUsername(signUpForm.fullname)
+  const username = uniqueUsername(values.fullname)
 
   const { data } = await dbClient
     .from(USERS_TABLE)
-    .insert({ username, fullname: signUpForm.fullname, id: authData.user?.id })
+    .insert({ username, fullname: values.fullname, id: authData.user?.id })
     .select('fullname')
     .single()
 
@@ -58,7 +62,7 @@ const onSignUp = async () => {
     life: 3000,
   })
   await navigateTo('/')
-}
+})
 </script>
 
 <template>
@@ -67,26 +71,25 @@ const onSignUp = async () => {
     <form @submit.prevent="onSignUp" class="flex flex-col gap-4 mt-6">
       <div role="group" class="form-group">
         <label for="fullname">Fullname</label>
-        <InputText id="fullname" v-model="signUpForm.fullname" />
+        <InputText id="fullname" :class="{ 'p-invalid': errorFullname }" v-model="fullnameValue" />
+        <small v-if="errorFullname" class="p-error" id="text-error">{{ errorFullname || '&nbsp;' }}</small>
       </div>
       <div role="group" class="form-group">
         <label for="email">Email</label>
-        <InputText type="email" id="email" v-model="signUpForm.email" />
+        <InputText type="email" id="email" :class="{ 'p-invalid': errorEmail }" v-model="emailValue" />
+        <small v-if="errorEmail" class="p-error" id="text-error">{{ errorEmail || '&nbsp;' }}</small>
       </div>
       <div role="group" class="form-group">
         <label for="password">Password</label>
-        <Password id="password" toggle-mask class="w-full" input-class="w-full" v-model="signUpForm.password" />
+        <Password id="password" toggle-mask class="w-full" input-class="w-full" :class="{ 'p-invalid': errorPassword }"
+          v-model="passwordValue" />
+        <small v-if="errorPassword" class="p-error" id="text-error">{{ errorPassword || '&nbsp;' }}</small>
       </div>
       <div class="form-group" role="group">
         <label for="rePassword">Repeat Password</label>
-        <Password
-          id="rePassword"
-          toggle-mask
-          class="w-full"
-          input-class="w-full"
-          :feedback="false"
-          v-model="signUpForm.repeatPassword"
-        />
+        <Password id="rePassword" toggle-mask class="w-full" :class="{ 'p-invalid': errorRepeatPassword }"
+          input-class="w-full" :feedback="false" v-model="repeatPasswordValue" />
+        <small v-if="errorRepeatPassword" class="p-error" id="text-error">{{ errorRepeatPassword || '&nbsp;' }}</small>
       </div>
 
       <Button type="submit" label="Sign Up" />
