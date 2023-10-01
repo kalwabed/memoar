@@ -1,9 +1,13 @@
 {
   "dependencies": {
     "@sindresorhus/slugify": "^2.2.1",
+    "@vee-validate/nuxt": "^4.11.7",
+    "@vee-validate/valibot": "^4.11.7",
     "@vueup/vue-quill": "^1.2.0",
-    "primevue": "^3.31.0",
-    "uid": "^2.0.2"
+    "primevue": "^3.34.1",
+    "uid": "^2.0.2",
+    "valibot": "^0.18.0",
+    "vee-validate": "^4.11.7"
   },
   "devDependencies": {
     "@nuxt/devtools": "^0.8.3",

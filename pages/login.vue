@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
+import { string, email, minLength } from 'valibot'
 
 useHead({
   title: 'Login',
@@ -9,16 +10,20 @@ definePageMeta({
   layout: 'auth',
 })
 
+const emailSchema = toTypedSchema(string([email("Must be a valid email"), minLength(1, "Email is required")]))
+const passwordSchema = toTypedSchema(string([minLength(1, "Password is required")]))
+
 const { auth } = useSupabaseClient()
 const toast = useToast()
+const { handleSubmit } = useForm()
+const { value: emailValue, errorMessage: errorEmail } = useField('email', emailSchema)
+const { value: passwordValue, errorMessage: errorPassword } = useField('password', passwordSchema)
 
-const loginForm = reactive({
-  email: '',
-  password: '',
-})
-
-const onLogin = async () => {
-  const { error } = await auth.signInWithPassword(loginForm)
+const onLogin = handleSubmit(async (values) => {
+  const { error } = await auth.signInWithPassword({
+    email: values.email,
+    password: values.password
+  })
 
   if (error) {
     toast.add({
@@ -32,6 +37,7 @@ const onLogin = async () => {
 
   await navigateTo('/')
 }
+)
 </script>
 
 <template>
@@ -41,18 +47,14 @@ const onLogin = async () => {
     <form @submit.prevent="onLogin" class="flex flex-col gap-4 mt-6">
       <div role="group" class="form-group">
         <label for="email">Email</label>
-        <InputText type="email" id="email" v-model="loginForm.email" />
+        <InputText type="email" id="email" :class="{ 'p-invalid': errorEmail }" v-model="emailValue" />
+        <small v-if="errorEmail" class="p-error" id="text-error">{{ errorEmail || '&nbsp;' }}</small>
       </div>
       <div class="form-group" role="group">
         <label for="password">Password</label>
-        <Password
-          id="password"
-          input-class="w-full"
-          class="w-full"
-          v-model="loginForm.password"
-          :feedback="false"
-          toggle-mask
-        />
+        <Password id="password" input-class="w-full" class="w-full" v-model="passwordValue" :feedback="false"
+          toggle-mask />
+        <small v-if="errorPassword" class="p-error" id="text-error">{{ errorPassword || '&nbsp;' }}</small>
       </div>
       <Button type="submit" label="Login" />
       <div class="mt-2">
