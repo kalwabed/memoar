@@ -11,7 +11,7 @@ dependencies:
   '@vee-validate/nuxt':
     specifier: ^4.11.7
     version: 4.11.7(vue@3.3.4)
-  '@vee-validate/zod':
+  '@vee-validate/valibot':
     specifier: ^4.11.7
     version: 4.11.7(vue@3.3.4)
   '@vueup/vue-quill':
@@ -23,12 +23,12 @@ dependencies:
   uid:
     specifier: ^2.0.2
     version: 2.0.2
+  valibot:
+    specifier: ^0.18.0
+    version: 0.18.0
   vee-validate:
     specifier: ^4.11.7
     version: 4.11.7(vue@3.3.4)
-  zod:
-    specifier: ^3.22.2
-    version: 3.22.2
 
 devDependencies:
   '@nuxt/devtools':
@@ -2073,12 +2073,12 @@ packages:
       - vue
     dev: false
 
-  /@vee-validate/zod@4.11.7(vue@3.3.4):
-    resolution: {integrity: sha512-1QONwpY5m93VXimuMLW7nbmvHUGHO3rrTXSM9bxLFWZSggfy5dqepg/RSJBAxlONtjf3P3nqIobGmAfPZrhLzA==}
+  /@vee-validate/valibot@4.11.7(vue@3.3.4):
+    resolution: {integrity: sha512-HUnKMANv3ZuKJIjJC9vf3XlhY2SCKHsjVZJRO7XRCDcVYaklza1iMYLAycgJ05Po8P6P+fcUzGoRg9oE7KrssA==}
     dependencies:
       type-fest: 4.3.2
+      valibot: 0.17.1
       vee-validate: 4.11.7(vue@3.3.4)
-      zod: 3.22.2
     transitivePeerDependencies:
       - vue
     dev: false
@@ -7266,6 +7266,14 @@ packages:
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  /valibot@0.17.1:
+    resolution: {integrity: sha512-yfft6fqeB059vNZEdar4tcfU3ZOn4raEec790PTQe1SVfJz5CkZOlMNabkW5MA9Z10SCjUWmxBRz1SMYTGU5yg==}
+    dev: false
+
+  /valibot@0.18.0:
+    resolution: {integrity: sha512-JpJ1ITTIAA4kuLDX5ygnjuMdeHryNI4cqx3vWQFisytTzH3/RBcTYJO336RSd/gRRRrYhIWf2RuST76p4TbdBw==}
+    dev: false
+
   /validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
     dependencies:
@@ -7914,7 +7922,3 @@ packages:
       compress-commons: 5.0.1
       readable-stream: 3.6.2
     dev: true
-
-  /zod@3.22.2:
-    resolution: {integrity: sha512-wvWkphh5WQsJbVk1tbx1l1Ly4yg+XecD+Mq280uBGt9wa5BKSWf4Mhp6GmrkPixhMxmabYY7RbzlwVP32pbGCg==}
-    dev: false

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
-import * as zod from 'zod'
+import { string, email, minLength } from 'valibot'
 
 useHead({
   title: 'Login',
@@ -10,8 +10,8 @@ definePageMeta({
   layout: 'auth',
 })
 
-const emailSchema = toTypedSchema(zod.string().nonempty("Email is required").email("Must be a valid email"))
-const passwordSchema = toTypedSchema(zod.string().nonempty("Password is required"))
+const emailSchema = toTypedSchema(string([email("Must be a valid email"), minLength(1, "Email is required")]))
+const passwordSchema = toTypedSchema(string([minLength(1, "Password is required")]))
 
 const { auth } = useSupabaseClient()
 const toast = useToast()
